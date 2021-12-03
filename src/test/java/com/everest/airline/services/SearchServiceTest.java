@@ -14,8 +14,8 @@ class SearchServiceTest {
     @Test
     void sortByPlace() {
 
-        SearchService search = new SearchService("Hyderabad", "Bangalore", "2021-12-05");
-        List<Flight> result = search.flight();
+        SearchService search = new SearchService();
+        List<Flight> result = search.flight("Hyderabad", "Bangalore", "2021-12-05");
         assertEquals(List.of(list.get(0)), result);
 
 
