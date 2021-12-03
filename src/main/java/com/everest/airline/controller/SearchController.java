@@ -1,5 +1,6 @@
-package com.everest.airline;
+package com.everest.airline.controller;
 
+import com.everest.airline.services.SearchService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
