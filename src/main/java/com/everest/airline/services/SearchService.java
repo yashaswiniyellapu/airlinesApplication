@@ -2,25 +2,18 @@ package com.everest.airline.services;
 
 import com.everest.airline.database.Data;
 import com.everest.airline.model.Flight;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class SearchService {
-    private String source;
-    private String destination;
-    private String date;
     private List<Flight> getFlightsList;
 
-    public SearchService(String source, String destination, String date) {
-        this.source = source;
-        this.destination = destination;
-        this.date = date;
-    }
+    public List<Flight> flight(String source, String destination, String date) {
 
-
-    public List<Flight> flight() {
         getFlightsList = new ArrayList<>();
         Data.getFlights().parallelStream()
                 .filter(f -> (f.getSource().equalsIgnoreCase(source) &&
