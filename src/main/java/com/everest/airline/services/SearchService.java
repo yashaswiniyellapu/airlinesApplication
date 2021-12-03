@@ -13,21 +13,21 @@ public class SearchService {
     private String date;
     private List<Flight> getFlightsList;
 
-    public SearchService(String source, String destination,String date) {
+    public SearchService(String source, String destination, String date) {
         this.source = source;
         this.destination = destination;
         this.date = date;
     }
 
 
-    public List<Flight> sortByPlace() {
+    public List<Flight> flight() {
         getFlightsList = new ArrayList<>();
-       Data.getFlights().parallelStream()
+        Data.getFlights().parallelStream()
                 .filter(f -> (f.getSource().equalsIgnoreCase(source) &&
-                        f.getDestination().equalsIgnoreCase(destination)&&
+                        f.getDestination().equalsIgnoreCase(destination) &&
                         f.getDepartureDate().equals(LocalDate.parse(date))))
-                .forEach(f->getFlightsList.add(f));
-       return getFlightsList;
+                .forEach(f -> getFlightsList.add(f));
+        return getFlightsList;
 
     }
 

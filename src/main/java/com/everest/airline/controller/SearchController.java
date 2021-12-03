@@ -15,8 +15,8 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/search")
-    public String search(String from, String to,String  date, Model model) {
-        model.addAttribute("flights",new SearchService(from,to,date).sortByPlace());
+    public String search(String from, String to, String date, Model model) {
+        model.addAttribute("flights", new SearchService(from, to, date).flight());
         return "search";
     }
 }
