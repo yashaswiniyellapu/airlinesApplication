@@ -1,25 +1,34 @@
 package com.everest.airline.database;
 
-
 import com.everest.airline.model.Flight;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Data {
-    static List<Flight> flights = List.of(
+    private static List<Flight> flights;
+    public static List<Flight> getData()
+    {
+        try {
+            FileInputStream file = new FileInputStream("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/Data");
+            List<String> input = new BufferedReader(new InputStreamReader(file)).lines().collect(Collectors.toList());
+            List<String[]> data= input.stream().map(e -> e.split(",")).collect(Collectors.toList());
+            flights=new ArrayList<>();
+            for (String[] datum : data) {
+                flights.add(new Flight(Long.parseLong(datum[0]), datum[1], datum[2], LocalDate.parse(datum[3]), LocalTime.parse(datum[4]), LocalTime.parse(datum[5]), Integer.parseInt(datum[6])));
+            }
 
-            new Flight(1001, "Hyderabad", "Bangalore", LocalDate.of(2021, 12, 05), LocalTime.of(10, 30), LocalTime.of(12, 0), 7),
-            new Flight(1002, "Bangalore", "Hyderabad", LocalDate.of(2021, 12, 06), LocalTime.of(10, 30), LocalTime.of(12, 0), 7),
-            new Flight(1003, "Goa", "Bangalore", LocalDate.of(2021, 12, 05), LocalTime.of(10, 30), LocalTime.of(12, 0), 7),
-            new Flight(1004, "Bangalore", "Goa", LocalDate.of(2021, 12, 06), LocalTime.of(10, 30), LocalTime.of(12, 0), 7),
-            new Flight(1005, "Bangalore", "Hyderabad", LocalDate.of(2021, 12, 07), LocalTime.of(10, 30), LocalTime.of(12, 0), 7),
-            new Flight(1006, "Hyderabad", "Bangalore", LocalDate.of(2021, 12, 06), LocalTime.of(10, 30), LocalTime.of(12, 0), 7));
+        }catch (FileNotFoundException e){
 
-    public static List<Flight> getFlights() {
-        return flights;
+        }
+    return flights;
     }
+
+
 }
 
 

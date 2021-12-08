@@ -5,8 +5,8 @@ import com.everest.airline.model.Flight;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class SearchService {
@@ -14,13 +14,11 @@ public class SearchService {
 
     public List<Flight> flight(String source, String destination, String date) {
 
-        getFlightsList = new ArrayList<>();
-        Data.getFlights().parallelStream()
+        return Data.getData().stream()
                 .filter(f -> (f.getSource().equalsIgnoreCase(source) &&
                         f.getDestination().equalsIgnoreCase(destination) &&
                         f.getDepartureDate().equals(LocalDate.parse(date))))
-                .forEach(f -> getFlightsList.add(f));
-        return getFlightsList;
+                .collect(Collectors.toList());
 
     }
 
