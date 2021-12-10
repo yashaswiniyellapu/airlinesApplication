@@ -1,11 +1,11 @@
 package com.everest.airline.services;
 
-import com.everest.airline.database.Data;
 import com.everest.airline.model.Flight;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,8 +13,10 @@ import java.util.stream.Collectors;
 public class SearchService {
 
     public List<Flight> flight(String source, String destination, String date) {
+        List<Flight> data = List.of(returnFlight(source, destination, date));
+        System.out.println(data);
 
-        return Data.getData().stream()
+        return data.stream()
                 .filter(f -> (f.getSource().equalsIgnoreCase(source) &&
                         f.getDestination().equalsIgnoreCase(destination) &&
                         f.getDepartureDate().equals(LocalDate.parse(date))))
@@ -45,4 +47,29 @@ public class SearchService {
             newFile.renameTo(data);
         }
     }
+
+    public Flight returnFlight(String source, String destination, String date) {
+        try {
+            File directory = new File("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData");
+            File[] listOfFiles = directory.listFiles();
+            if (listOfFiles != null) {
+                for (File file : listOfFiles) {
+                    if (file.isFile()) {
+                        String line;
+                        line = new BufferedReader(new FileReader(file)).readLine();
+                        String[] flightsData = line.split(",");
+                        if (flightsData[1].equalsIgnoreCase(source) && flightsData[2].equalsIgnoreCase(destination) && flightsData[3].equalsIgnoreCase(date)) {
+                            return new Flight(Integer.parseInt(flightsData[0]), flightsData[1], flightsData[2], LocalDate.parse(flightsData[3]), LocalTime.parse(flightsData[4]), LocalTime.parse(flightsData[5]), Integer.parseInt(flightsData[6]));
+                        }
+
+
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
+
