@@ -2,34 +2,40 @@ package com.everest.airline.database;
 
 import com.everest.airline.model.Flight;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Data {
-    private static List<Flight> flights;
 
-    public static List<Flight> getData() {
+    public Flight returnFlight(String source, String destination, String date) {
         try {
-            FileInputStream file = new FileInputStream("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData.txt");
-            List<String> input = new BufferedReader(new InputStreamReader(file)).lines().collect(Collectors.toList());
-            List<String[]> data = input.stream().map(e -> e.split(",")).collect(Collectors.toList());
-            flights = new ArrayList<>();
-            for (String[] datum : data) {
-                flights.add(new Flight(Long.parseLong(datum[0]), datum[1], datum[2], LocalDate.parse(datum[3]), LocalTime.parse(datum[4]), LocalTime.parse(datum[5]), Integer.parseInt(datum[6])));
+            File directory = new File("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData");
+            File[] listOfFiles = directory.listFiles();
+            if (listOfFiles != null) {
+                for (File file : listOfFiles) {
+                    if (file.isFile()) {
+                        String line;
+                        line = new BufferedReader(new FileReader(file)).readLine();
+                        String[] flightsData = line.split(",");
+                        if (flightsData[1].equalsIgnoreCase(source) && flightsData[2].equalsIgnoreCase(destination) && flightsData[3].equalsIgnoreCase(date)) {
+                            return new Flight(Integer.parseInt(flightsData[0]), flightsData[1], flightsData[2], LocalDate.parse(flightsData[3]), LocalTime.parse(flightsData[4]), LocalTime.parse(flightsData[5]), Integer.parseInt(flightsData[6]));
+                        }
+
+
+                    }
+                }
             }
-
-
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return flights;
+        return null;
     }
 
-
 }
+
 
 
