@@ -1,54 +1,45 @@
 package com.everest.airline.services;
 
 import com.everest.airline.database.Data;
+import com.everest.airline.database.DataParser;
+import com.everest.airline.database.FileHandler;
 import com.everest.airline.model.Flight;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
 @Component
 public class SearchService {
 
-    public List<Flight> flight(String source, String destination, String date) {
+    public List<Flight> flight(String source, String destination, String date) throws IOException {
         Data flight = new Data();
-        List<Flight> data = List.of(flight.returnFlight(source, destination, date));
-        return data;
+        return List.of(flight.returnFlight(source, destination, date));
 
     }
 
-    public void leftOverSeats(List<Flight> returnedFlightData) {
+    public void seatsLeft(List<Flight> returnedFlightData) throws IOException {
         for (Flight flight : returnedFlightData) {
-            try {
-                File directory = new File("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData");
-                File[] listOfFiles = directory.listFiles();
-                if (listOfFiles != null) {
-                    for (File file : listOfFiles) {
-                        String inputFileName = flight.getNumber() + ".txt";
-                        if (inputFileName.equals(file.getName())) {
-                            String line = new BufferedReader(new FileReader(file.getPath())).readLine();
-                            BufferedWriter writer = new BufferedWriter(new FileWriter(file.getPath()));
-                            if (line != null) {
-                                if (line.contains(Long.toString(flight.getNumber())) && line.contains(Integer.toString(flight.getAvailableSeats()))) {
-                                    line = line.replace(Integer.toString(flight.getAvailableSeats()), "" + (flight.getAvailableSeats() - 1));
-                                    writer.write(line + "\n");
-
-                                }
-                                writer.close();
-                            }
-
-                        }
-
-                    }
-
+            FileHandler fileHandler = new FileHandler(flight.getSource(), flight.getDestination(), flight.getDepartureDate().toString());
+            File file = fileHandler.getFileData(Path.of("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData"));
+            DataParser data = new DataParser(file);
+            String line = data.readFile();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            if (line != null) {
+                if (line.contains(Integer.toString(flight.getAvailableSeats()))) {
+                    line = line.replace(Integer.toString(flight.getAvailableSeats()), Integer.toString(flight.getAvailableSeats() - 1));
+                    writer.write(line);
+                    writer.close();
                 }
-
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-        }
-    }
 
+        }
+
+    }
 
 }
 

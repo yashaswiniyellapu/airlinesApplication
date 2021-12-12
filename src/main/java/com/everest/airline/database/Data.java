@@ -2,39 +2,28 @@ package com.everest.airline.database;
 
 import com.everest.airline.model.Flight;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Data {
 
-    public Flight returnFlight(String source, String destination, String date) {
-        try {
-            File directory = new File("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData");
-            File[] listOfFiles = directory.listFiles();
-            if (listOfFiles != null) {
-                for (File file : listOfFiles) {
-                    if (file.isFile()) {
-                        String line;
-                        line = new BufferedReader(new FileReader(file)).readLine();
-                        String[] flightsData = line.split(",");
-                        if (flightsData[1].equalsIgnoreCase(source) && flightsData[2].equalsIgnoreCase(destination) && flightsData[3].equalsIgnoreCase(date)) {
-                            return new Flight(Integer.parseInt(flightsData[0]), flightsData[1], flightsData[2], LocalDate.parse(flightsData[3]), LocalTime.parse(flightsData[4]), LocalTime.parse(flightsData[5]), Integer.parseInt(flightsData[6]));
-                        }
-
-
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public Flight returnFlight(String source, String destination, String date) throws IOException {
+        FileHandler fileHandler = new FileHandler(source, destination, date);
+        File dataFile = fileHandler.getFileData(Path.of("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData"));
+        DataParser data = new DataParser(dataFile);
+        String[] line = data.readFile().split(",");
+        long flightNumber = Long.parseLong(line[0]);
+        String from = line[1];
+        String to = line[2];
+        LocalDate departureDate = LocalDate.parse(line[3]);
+        LocalTime departureTime = LocalTime.parse(line[4]);
+        LocalTime arrivalTime = LocalTime.parse(line[5]);
+        int availableSeats = Integer.parseInt(line[6]);
+        return new Flight(flightNumber, from, to, departureDate, departureTime, arrivalTime, availableSeats);
     }
-
 }
 
 
