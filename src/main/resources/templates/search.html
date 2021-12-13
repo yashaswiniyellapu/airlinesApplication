@@ -7,26 +7,27 @@
 </head>
 
 <body>
-    <h1>Airline application</h1>
-    <table border="1">
-        <th>Number</th>
-        <th>From</th>
-        <th>To</th>
-        <th>DepartureDate</th>
-        <th>DepartureTime</th>
-        <th>ArrivalTime</th>
-        <th>AvailableSeats</th>
+<h1>Airline application</h1>
+<table border="1">
+    <th>Number</th>
+    <th>From</th>
+    <th>To</th>
+    <th>DepartureDate</th>
+    <th>DepartureTime</th>
+    <th>ArrivalTime</th>
+    <th>AvailableSeats</th>
 
-        <tr th:each="flight:${flights}">
-            <td th:text="${flight.number}"></td>
-            <td th:text="${flight.source}"></td>
-            <td th:text="${flight.destination}"></td>
-            <td th:text="${flight.departureDate}"></td>
-            <td th:text="${flight.departureTime}"></td>
-            <td th:text="${flight.arrivalTime}"></td>
-            <td th:text="${flight.availableSeats}"></td>
-        </tr>
-    </table>
+
+    <tr th:each="flight:${flights}">
+        <td th:text="${flight.number}"></td>
+        <td th:text="${flight.source}"></td>
+        <td th:text="${flight.destination}"></td>
+        <td th:text="${flight.departureDate}"></td>
+        <td th:text="${flight.departureTime}"></td>
+        <td th:text="${flight.arrivalTime}"></td>
+        <td th:text="${flight.availableSeats}"></td>
+    </tr>
+</table>
 </body>
 
 </html>

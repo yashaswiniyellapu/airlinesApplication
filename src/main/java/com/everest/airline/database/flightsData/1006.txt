@@ -1,1 +1,1 @@
-1006,Hyderabad,Bangalore,2021-12-06,10:30,12:45,75
+1006,Hyderabad,Bangalore,2021-12-06,10:30,12:45,74

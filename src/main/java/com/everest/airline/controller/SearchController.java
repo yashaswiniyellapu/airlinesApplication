@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,11 +21,21 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/search")
-    public String search(String from, String to, String date, Model model) throws IOException {
-        model.addAttribute("flights", searchService.flight(from, to, date));
-        List<Flight> returnedFlightData = searchService.flight(from, to, date);
-//        searchService.leftOverSeats(returnedFlightData);
-        searchService.seatsLeft(returnedFlightData);
-    return "search";
+    public String search(String from, String to, String date, String numberOfPassengers, Model model) throws IOException {
+        try {
+            List<Flight> flightData = searchService.flight(from, to, date);
+            if (flightData.size() == 0) {
+                throw new NullPointerException();
+            } else {
+                model.addAttribute("flights", searchService.flight(from, to, date));
+                List<Flight> returnedFlightData = searchService.flight(from, to, date);
+                searchService.seatsLeft(returnedFlightData);
+                System.out.println("number of passengers " + numberOfPassengers);
+                return "search";
+            }
+        } catch (NullPointerException e) {
+            return "error";
+
+        }
     }
 }

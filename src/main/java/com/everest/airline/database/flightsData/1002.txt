@@ -1,1 +1,1 @@
-1002,Bangalore,Hyderabad,2021-12-05,10:30,12:40,40
+1002,Bangalore,Hyderabad,2021-12-05,10:30,12:36,36

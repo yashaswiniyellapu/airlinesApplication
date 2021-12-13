@@ -18,7 +18,9 @@ public class SearchService {
 
     public List<Flight> flight(String source, String destination, String date) throws IOException {
         Data flight = new Data();
-        return List.of(flight.returnFlight(source, destination, date));
+        List<Flight> flightData;
+            flightData=List.of(flight.returnFlight(source, destination, date));
+        return flightData;
 
     }
 
