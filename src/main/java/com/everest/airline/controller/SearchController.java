@@ -31,7 +31,7 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/search")
-    public String search(String from, String to, String date, String numberOfPassengers, Model model) throws IOException {
+    public String search(String from, String to, String date, Model model) throws IOException {
         if (from != null) {
             this.departureDate = date;
             this.to = to;
@@ -52,10 +52,10 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/book/{number}")
-    public String book(@PathVariable("number") Long number) throws IOException {
+    public String book(@PathVariable("number") Long number, String numberOfPassengers) throws IOException {
         BookTicketService bookFlight = new BookTicketService(number);
         bookFlight.seatsLeft(Path.of
-                ("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData"));
+                ("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData"),numberOfPassengers);
         return "redirect:/search";
     }
 }

@@ -15,7 +15,7 @@ public class BookTicketService {
         this.flightNumber = flightNumber;
     }
 
-    public void seatsLeft(Path path) throws IOException {
+    public void seatsLeft(Path path, String numberOfPassengers) throws IOException {
         File directory = new File(String.valueOf(path));
         File[] listOfFiles = directory.listFiles();
         if (listOfFiles != null) {
@@ -28,7 +28,7 @@ public class BookTicketService {
                 int seatsAvailable = Integer.parseInt(flightData[6]);
                 if (flightId.equals(Long.toString(flightNumber))) {
                     BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-                    line = line.replace(Integer.toString(seatsAvailable), Integer.toString(seatsAvailable - 1));
+                    line = line.replace(Integer.toString(seatsAvailable), Integer.toString(seatsAvailable -(Integer.parseInt(numberOfPassengers)) ));
                     writer.write(line);
                     writer.close();
                     break;
