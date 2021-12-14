@@ -1,6 +1,5 @@
 package com.everest.airline.controller;
 
-import com.everest.airline.database.FileHandler;
 import com.everest.airline.model.Flight;
 import com.everest.airline.services.BookTicketService;
 import com.everest.airline.services.SearchService;
@@ -33,12 +32,12 @@ public class SearchController {
 
     @RequestMapping(value = "/search")
     public String search(String from, String to, String date, String numberOfPassengers, Model model) throws IOException {
-        if(from!=null){
-            this.departureDate=date;
-            this.to=to;
-            this.from=from;
+        if (from != null) {
+            this.departureDate = date;
+            this.to = to;
+            this.from = from;
         }
-         flightData = searchService.flight(this.from, this.to, this.departureDate);
+        flightData = searchService.flight(this.from, this.to, this.departureDate);
         if (flightData.size() == 0) {
             try {
                 throw new NullPointerException();
@@ -53,9 +52,9 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/book/{number}")
-    public String book( @PathVariable("number") Long number) throws IOException {
+    public String book(@PathVariable("number") Long number) throws IOException {
         BookTicketService bookFlight = new BookTicketService(number);
-         bookFlight.seatsLeft(Path.of
+        bookFlight.seatsLeft(Path.of
                 ("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData"));
         return "redirect:/search";
     }
