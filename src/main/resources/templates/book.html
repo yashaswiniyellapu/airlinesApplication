@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -16,11 +15,10 @@
     <th>DepartureTime</th>
     <th>ArrivalTime</th>
     <th>AvailableSeats</th>
-    <th>Book</th>
 
 
 
-    <tr th:each="flight:${flights}">
+    <tr th:each="flight:${updatedFlights}">
         <td th:text="${flight.number}"></td>
         <td th:text="${flight.source}"></td>
         <td th:text="${flight.destination}"></td>
@@ -28,12 +26,8 @@
         <td th:text="${flight.departureTime}"></td>
         <td th:text="${flight.arrivalTime}"></td>
         <td th:text="${flight.availableSeats}"></td>
-        <form action="#" th:action="@{'/book/'+${flight.number}}"  method="post">
-             <td> <input type="submit" th:value="book" id="book" name="book"></form>
-
         </td>
     </tr>
 </table>
 </body>
-
 </html>

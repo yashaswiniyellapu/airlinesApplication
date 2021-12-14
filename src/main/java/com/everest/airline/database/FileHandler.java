@@ -19,6 +19,7 @@ public class FileHandler {
 
     }
 
+
     public File getFileData(Path filePath) throws IOException {
         File fileName = null;
         File directory = new File(String.valueOf(filePath));
@@ -32,6 +33,7 @@ public class FileHandler {
                 if (check) {
                     fileName = getFile(file);
                     break;
+
                 }
             }
         }
@@ -39,19 +41,18 @@ public class FileHandler {
     }
 
     public boolean validateFileData(String[] fileData) {
-        if (fileData != null) {
-            String source = fileData[1];
-            String destination = fileData[2];
-            String date = fileData[3];
-            if (from.equalsIgnoreCase(source) &&
-                    to.equalsIgnoreCase(destination) &&
-                    departureDate.equalsIgnoreCase(date)) {
-                isContains = true;
-            }
-
+        String source = fileData[1];
+        String destination = fileData[2];
+        String date = fileData[3];
+        if (from.equalsIgnoreCase(source) &&
+                to.equalsIgnoreCase(destination) &&
+                departureDate.equalsIgnoreCase(date)) {
+            isContains = true;
         }
+
         return isContains;
     }
+
 
     public File getFile(File file) {
         return file;

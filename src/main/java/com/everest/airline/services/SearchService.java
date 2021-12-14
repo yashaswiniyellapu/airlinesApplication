@@ -15,33 +15,32 @@ import java.util.List;
 
 @Component
 public class SearchService {
-
+    private List<Flight> flightData;
     public List<Flight> flight(String source, String destination, String date) throws IOException {
         Data flight = new Data();
-        List<Flight> flightData;
-            flightData=List.of(flight.returnFlight(source, destination, date));
+       flightData = List.of(flight.returnFlight(source, destination, date));
         return flightData;
 
     }
 
-    public void seatsLeft(List<Flight> returnedFlightData) throws IOException {
-        for (Flight flight : returnedFlightData) {
-            FileHandler fileHandler = new FileHandler(flight.getSource(), flight.getDestination(), flight.getDepartureDate().toString());
-            File file = fileHandler.getFileData(Path.of("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData"));
-            DataParser data = new DataParser(file);
-            String line = data.readFile();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            if (line != null) {
-                if (line.contains(Integer.toString(flight.getAvailableSeats()))) {
-                    line = line.replace(Integer.toString(flight.getAvailableSeats()), Integer.toString(flight.getAvailableSeats() - 1));
-                    writer.write(line);
-                    writer.close();
-                }
-            }
-
-        }
-
-    }
+//    public void seatsLeft(List<Flight> returnedFlightData) throws IOException {
+//        for (Flight flight : returnedFlightData) {
+//            FileHandler fileHandler = new FileHandler(flight.getSource(), flight.getDestination(), flight.getDepartureDate().toString());
+//            File file = fileHandler.getFileData(Path.of("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData"));
+//            DataParser data = new DataParser(file);
+//            String line = data.readFile();
+//            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+//            if (line != null) {
+//                if (line.contains(Integer.toString(flight.getAvailableSeats()))) {
+//                    line = line.replace(Integer.toString(flight.getAvailableSeats()), Integer.toString(flight.getAvailableSeats() - 1));
+//                    writer.write(line);
+//                    writer.close();
+//                }
+//            }
+//
+//        }
+//
+//    }
 
 }
 
