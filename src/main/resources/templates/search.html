@@ -16,6 +16,9 @@
     <th>DepartureTime</th>
     <th>ArrivalTime</th>
     <th>AvailableSeats</th>
+    <th>EconomicSeats</th>
+    <th>SecondClassSeats</th>
+    <th>FirstClassSeats</th>
     <th>Class</th>
     <th>Number of Passengers</th>
     <th>Book</th>
@@ -30,11 +33,15 @@
         <td th:text="${flight.departureTime}"></td>
         <td th:text="${flight.arrivalTime}"></td>
         <td th:text="${flight.availableSeats}"></td>
+        <td th:text="${flight.economicSeats}"></td>
+        <td th:text="${flight.secondClassSeats}"></td>
+        <td th:text="${flight.firstClassSeats}"></td>
+
         <form action="#" th:action="@{'/book/'+${flight.number}}"  method="post">
-            <td><select>
-                <option value="economic">Economic</option>
-                <option value="second">Second</option>
-                <option value="first">First</option>
+            <td><select name="classType" id="classType">
+                <option th:value="economic">Economic</option>
+                <option th:value="second">Second</option>
+                <option th:value="first">First</option>
             </select>
 
             </td>

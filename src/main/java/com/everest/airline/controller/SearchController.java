@@ -52,10 +52,11 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/book/{number}")
-    public String book(@PathVariable("number") Long number, String numberOfPassengers) throws IOException {
+    public String book(@PathVariable("number") Long number, String classType,String numberOfPassengers) throws IOException {
         BookTicketService bookFlight = new BookTicketService(number);
         bookFlight.seatsLeft(Path.of
                 ("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData"),numberOfPassengers);
+        System.out.println("class type "+ classType);
         return "redirect:/search";
     }
 }

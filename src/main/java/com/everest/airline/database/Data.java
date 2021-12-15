@@ -22,7 +22,10 @@ public class Data {
         LocalTime departureTime = LocalTime.parse(line[4]);
         LocalTime arrivalTime = LocalTime.parse(line[5]);
         int availableSeats = Integer.parseInt(line[6]);
-        return new Flight(flightNumber, from, to, departureDate, departureTime, arrivalTime, availableSeats);
+        int economicSeats = Integer.parseInt(line[7]);
+        int secondClassSeats = Integer.parseInt(line[8]);
+        int firstClassSeats = Integer.parseInt(line[9]);
+        return new Flight(flightNumber, from, to, departureDate, departureTime, arrivalTime, availableSeats,economicSeats,secondClassSeats,firstClassSeats);
     }
 }
 
