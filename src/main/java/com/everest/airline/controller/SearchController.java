@@ -2,6 +2,7 @@ package com.everest.airline.controller;
 
 import com.everest.airline.model.Flight;
 import com.everest.airline.services.BookTicketService;
+import com.everest.airline.services.Cabin;
 import com.everest.airline.services.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,11 +53,13 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/book/{number}")
-    public String book(@PathVariable("number") Long number, String classType,String numberOfPassengers) throws IOException {
+    public String book(@PathVariable("number") Long number, String classType, String numberOfPassengers) throws IOException {
+        Cabin type = new Cabin(classType, numberOfPassengers);
+        String line = type.seatsLeft(flightData);
         BookTicketService bookFlight = new BookTicketService(number);
         bookFlight.seatsLeft(Path.of
-                ("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData"),numberOfPassengers);
-        System.out.println("class type "+ classType);
+                ("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData"), line);
+        System.out.println("class type " + classType);
         return "redirect:/search";
     }
 }

@@ -15,26 +15,27 @@ public class BookTicketService {
         this.flightNumber = flightNumber;
     }
 
-    public void seatsLeft(Path path, String numberOfPassengers) throws IOException {
-        File directory = new File(String.valueOf(path));
-        File[] listOfFiles = directory.listFiles();
-        if (listOfFiles != null) {
-            for (File file : listOfFiles) {
-                if (file.getName().contains(Long.toString(flightNumber))) ;
-                DataParser data = new DataParser(file);
-                String line = data.readFile();
-                String[] flightData = line.split(",");
-                String flightId = flightData[0];
-                int seatsAvailable = Integer.parseInt(flightData[6]);
-                if (flightId.equals(Long.toString(flightNumber))) {
-                    BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-                    line = line.replace(Integer.toString(seatsAvailable), Integer.toString(seatsAvailable -(Integer.parseInt(numberOfPassengers)) ));
-                    writer.write(line);
-                    writer.close();
-                    break;
+    public void seatsLeft(Path path, String updatedLine) throws IOException {
+        if (updatedLine != null) {
+            File directory = new File(String.valueOf(path));
+            File[] listOfFiles = directory.listFiles();
+            if (listOfFiles != null) {
+                for (File file : listOfFiles) {
+                    if (file.getName().contains(Long.toString(flightNumber))) ;
+                    DataParser data = new DataParser(file);
+                    String line = data.readFile();
+                    if (file.getName().equalsIgnoreCase(Long.toString(flightNumber) + ".txt")) {
+                        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                        line = line.replace(line, updatedLine);
+                        System.out.println(line);
+                        writer.write(line);
+                        writer.close();
+                        break;
+                    }
                 }
-            }
 
+            }
         }
     }
+
 }
