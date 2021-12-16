@@ -15,6 +15,10 @@ public class Flight {
     private int economicSeats;
     private int firstClassSeats;
     private int secondClassSeats;
+    private double economicFare;
+    private double secondClassFare;
+    private double firstClassFare;
+    private double totalFare;
 
     public Flight(long number, String source, String destination, LocalDate departureDate, LocalTime departureTime, LocalTime arrivalTime, int availableSeats, int economicSeats, int secondClassSeats, int firstClassSeats) {
         this.number = number;
@@ -67,5 +71,25 @@ public class Flight {
 
     public int getSecondClassSeats() {
         return secondClassSeats;
+    }
+
+    public double getEconomicFare() {
+        return economicFare=170.0;
+    }
+
+    public double getSecondClassFare() {
+        return secondClassFare=200.0;
+    }
+
+    public double getFirstClassFare() {
+        return firstClassFare=350.0;
+    }
+
+    public double getTotalFare() {
+        return totalFare;
+    }
+
+    public void setTotalFare(double totalFare) {
+        this.totalFare = totalFare;
     }
 }

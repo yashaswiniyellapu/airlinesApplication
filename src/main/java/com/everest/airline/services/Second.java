@@ -10,6 +10,7 @@ public class Second extends FlightClass {
     @Override
     String updatedData(Flight flight, String decreasedSeats) {
         int availableSeats = flight.getAvailableSeats() - numberOfPassengers;
+        flight.setTotalFare(flight.getSecondClassFare()*numberOfPassengers);
         return flight.getNumber() + "," + flight.getSource() + "," + flight.getDestination() +
                 "," + flight.getDepartureDate() + "," + flight.getDepartureTime() + "," +
                 flight.getArrivalTime() + "," + availableSeats +

@@ -53,13 +53,13 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/book/{number}")
-    public String book(@PathVariable("number") Long number, String classType, String numberOfPassengers) throws IOException {
+    public String book(@PathVariable("number") Long number, String classType, String numberOfPassengers,Model model) throws IOException {
         Cabin type = new Cabin(classType, numberOfPassengers);
         String line = type.seatsLeft(flightData);
         BookTicketService bookFlight = new BookTicketService(number);
-        bookFlight.seatsLeft(Path.of
+        bookFlight.updateData(Path.of
                 ("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData"), line);
-        System.out.println("class type " + classType);
-        return "redirect:/search";
+        model.addAttribute("flights",flightData);
+        return "book";
     }
 }

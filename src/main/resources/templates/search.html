@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 
 <body>
@@ -17,8 +18,11 @@
     <th>ArrivalTime</th>
     <th>AvailableSeats</th>
     <th>EconomicSeats</th>
+    <th>EconomicFare</th>
     <th>SecondClassSeats</th>
+    <th>SecondClassFare</th>
     <th>FirstClassSeats</th>
+    <th>FirstClassFare</th>
     <th>Class</th>
     <th>Number of Passengers</th>
     <th>Book</th>
@@ -34,10 +38,12 @@
         <td th:text="${flight.arrivalTime}"></td>
         <td th:text="${flight.availableSeats}"></td>
         <td th:text="${flight.economicSeats}"></td>
+        <td th:text="${flight.getEconomicFare()}"></td>
         <td th:text="${flight.secondClassSeats}"></td>
+        <td th:text="${flight.getSecondClassFare()}"></td>
         <td th:text="${flight.firstClassSeats}"></td>
-
-        <form action="#" th:action="@{'/book/'+${flight.number}}"  method="post">
+        <td th:text="${flight.getFirstClassFare()}"></td>
+        <form action="#" th:action="@{'/book/'+${flight.number}}" method="post">
             <td><select name="classType" id="classType">
                 <option th:value="economic">Economic</option>
                 <option th:value="second">Second</option>
@@ -45,9 +51,10 @@
             </select>
 
             </td>
-            <td><input id="numberOfPassengers" name="numberOfPassengers" required="required" /></td>
-             <td> <input type="submit" th:value="book" id="book" name="book"></form>
+            <td><input id="numberOfPassengers" name="numberOfPassengers" required="required"/></td>
+            <td><input type="submit" th:value="book" id="book" name="book">
 
+        </form>
         </td>
     </tr>
 </table>

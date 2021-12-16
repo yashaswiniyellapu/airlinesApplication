@@ -15,7 +15,7 @@ public class BookTicketService {
         this.flightNumber = flightNumber;
     }
 
-    public void seatsLeft(Path path, String updatedLine) throws IOException {
+    public void updateData(Path path, String updatedLine) throws IOException {
         if (updatedLine != null) {
             File directory = new File(String.valueOf(path));
             File[] listOfFiles = directory.listFiles();
@@ -27,7 +27,6 @@ public class BookTicketService {
                     if (file.getName().equalsIgnoreCase(Long.toString(flightNumber) + ".txt")) {
                         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
                         line = line.replace(line, updatedLine);
-                        System.out.println(line);
                         writer.write(line);
                         writer.close();
                         break;
