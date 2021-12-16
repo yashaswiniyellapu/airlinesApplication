@@ -21,7 +21,7 @@ public class BookTicketService {
             File[] listOfFiles = directory.listFiles();
             if (listOfFiles != null) {
                 for (File file : listOfFiles) {
-                    if (file.getName().contains(Long.toString(flightNumber))) ;
+                    if (file.getName().equalsIgnoreCase(Long.toString(flightNumber)+".txt")) ;
                     DataParser data = new DataParser(file);
                     String line = data.readFile();
                     if (file.getName().equalsIgnoreCase(Long.toString(flightNumber) + ".txt")) {
