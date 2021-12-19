@@ -6,29 +6,12 @@
 </head>
 
 <body>
-<h1>Airline application</h1>
-<table border="1">
-    <th>Number</th>
-    <th>From</th>
-    <th>To</th>
-    <th>DepartureDate</th>
-    <th>DepartureTime</th>
-    <th>ArrivalTime</th>
-    <th>AvailableSeats</th>
-    <th>TotalFare</th>
+<h1>Successfully Booked</h1>
+<form th:action="@{'/'}" method="post">
+    <input type="submit" th:value="bookMoreFlights" id="bookMoreFlights" name="bookMoreFlights">
 
-    <tr th:each="flight:${flights}">
-        <td th:text="${flight.number}"></td>
-        <td th:text="${flight.source}"></td>
-        <td th:text="${flight.destination}"></td>
-        <td th:text="${flight.departureDate}"></td>
-        <td th:text="${flight.departureTime}"></td>
-        <td th:text="${flight.arrivalTime}"></td>
-        <td th:text="${flight.availableSeats}"></td>
-        <td th:text="${flight.getTotalFare()}"></td>
+</form>
 
-        </td>
-    </tr>
-</table>
+
 </body>
 </html>

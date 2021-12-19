@@ -1,6 +1,5 @@
 package com.everest.airline.services;
 
-
 import com.everest.airline.model.Flight;
 
 public abstract class FlightClass {
@@ -19,5 +18,5 @@ public abstract class FlightClass {
         return Integer.toString(seatsAvailable);
     }
 
-    abstract String updatedData(Flight flight, String decreasedSeats);
+    abstract String updatedData(Flight flight, String decreasedSeats) throws Exception;
 }

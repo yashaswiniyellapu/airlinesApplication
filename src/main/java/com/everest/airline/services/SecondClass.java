@@ -1,19 +1,19 @@
 package com.everest.airline.services;
 
+import com.everest.airline.enums.FareType;
 import com.everest.airline.model.Flight;
 
-public class Economic extends FlightClass {
-    public Economic(int seatsType, int numberOfPassengers) {
+public class SecondClass extends FlightClass {
+    public SecondClass(int seatsType, int numberOfPassengers) {
         super(seatsType, numberOfPassengers);
     }
 
     @Override
     String updatedData(Flight flight, String decreasedSeats) {
         int availableSeats = flight.getAvailableSeats() - numberOfPassengers;
-        flight.setTotalFare(flight.getEconomicFare()*numberOfPassengers);
         return flight.getNumber() + "," + flight.getSource() + "," + flight.getDestination() +
                 "," + flight.getDepartureDate() + "," + flight.getDepartureTime() + "," +
                 flight.getArrivalTime() + "," + availableSeats +
-                "," + decreasedSeats + "," + flight.getSecondClassSeats() + "," + flight.getFirstClassSeats();
+                "," + flight.getEconomicClassSeats() + "," + decreasedSeats + "," + flight.getFirstClassSeats();
     }
 }
