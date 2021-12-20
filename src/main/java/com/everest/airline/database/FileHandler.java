@@ -31,7 +31,6 @@ public class FileHandler {
                 if (validateFileData(fileData)) {
                     fileList.add(fileData);
                 }
-                else throw new NullPointerException();
             }
         }
         return fileList;

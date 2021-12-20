@@ -13,7 +13,8 @@ public class FirstClass extends FlightClass {
         return flight.getNumber() + "," + flight.getSource() + "," + flight.getDestination() +
                 "," + flight.getDepartureDate() + "," + flight.getDepartureTime() + "," +
                 flight.getArrivalTime() + "," + availableSeats +
-                "," + flight.getEconomicClassSeats() + "," + flight.getSecondClassSeats() + "," + decreasedSeats;
+                "," + flight.getEconomicClassSeats() + "," + flight.getSecondClassSeats() + "," + decreasedSeats+","+
+                flight.getEconomicCapacity()+","+ flight.getSecondClassCapacity()+","+flight.getFirstClassCapacity();
     }
 
 }

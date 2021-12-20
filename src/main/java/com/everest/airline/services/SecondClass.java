@@ -14,6 +14,7 @@ public class SecondClass extends FlightClass {
         return flight.getNumber() + "," + flight.getSource() + "," + flight.getDestination() +
                 "," + flight.getDepartureDate() + "," + flight.getDepartureTime() + "," +
                 flight.getArrivalTime() + "," + availableSeats +
-                "," + flight.getEconomicClassSeats() + "," + decreasedSeats + "," + flight.getFirstClassSeats();
+                "," + flight.getEconomicClassSeats() + "," + decreasedSeats + "," + flight.getFirstClassSeats()+","+
+                flight.getEconomicCapacity()+","+ flight.getSecondClassCapacity()+","+flight.getFirstClassCapacity();
     }
 }

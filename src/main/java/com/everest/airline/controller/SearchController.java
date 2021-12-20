@@ -1,6 +1,9 @@
 package com.everest.airline.controller;
 
 import com.everest.airline.model.Flight;
+import com.everest.airline.model.FlightClassTest;
+import com.everest.airline.model.FlightFilterTest;
+import com.everest.airline.price.Test;
 import com.everest.airline.services.DataUpdater;
 import com.everest.airline.services.SearchService;
 import com.everest.airline.services.TotalFareCalculation;
@@ -20,7 +23,7 @@ public class SearchController {
     @Autowired
     public SearchService searchService;
     @Autowired
-    public TotalFareCalculation test;
+    public TotalFareCalculation totalFareCalculation;
     @Autowired
     public DataUpdater dataUpdater;
 
@@ -30,25 +33,22 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/search")
-    public String search(String from, String to, String date, String passengersCount, String classType, Model model)  {
+    public String search(String from, String to, String date, String passengersCount, String classType, Model model) throws Exception {
 
             try {
                 flightData = searchService.flight(from, to, date, passengersCount, classType);
             }
-        catch (NullPointerException e) {
-            return "error";
-        }
         catch (IllegalStateException e)
         {
             return "flightsUnavailable";
-        } catch (Exception e) {
-                e.printStackTrace();
-            }
+        }
         model.addAttribute("flights", flightData);
         model.addAttribute("classType", classType);
         model.addAttribute("classFare", classType);
         model.addAttribute("passengerCount", passengersCount);
-        model.addAttribute("totalFare", test.totalFare(Integer.parseInt(passengersCount), classType));
+        model.addAttribute("totalFare", searchService.getPrice());
+
+
         return "search";
     }
 
