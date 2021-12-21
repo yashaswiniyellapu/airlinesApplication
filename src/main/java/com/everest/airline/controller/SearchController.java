@@ -1,12 +1,8 @@
 package com.everest.airline.controller;
 
 import com.everest.airline.model.Flight;
-import com.everest.airline.model.FlightClassTest;
-import com.everest.airline.model.FlightFilterTest;
-import com.everest.airline.price.Test;
-import com.everest.airline.services.DataUpdater;
+import com.everest.airline.services.BookService;
 import com.everest.airline.services.SearchService;
-import com.everest.airline.services.TotalFareCalculation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +19,7 @@ public class SearchController {
     @Autowired
     public SearchService searchService;
     @Autowired
-    public TotalFareCalculation totalFareCalculation;
-    @Autowired
-    public DataUpdater dataUpdater;
+    public BookService updateBooking;
 
     @RequestMapping(value = "/")
     public String home() {
@@ -35,18 +29,16 @@ public class SearchController {
     @RequestMapping(value = "/search")
     public String search(String from, String to, String date, String passengersCount, String classType, Model model) throws Exception {
 
-            try {
-                flightData = searchService.flight(from, to, date, passengersCount, classType);
-            }
-        catch (IllegalStateException e)
-        {
+        try {
+            flightData = searchService.flight(from, to, date, passengersCount, classType);
+        } catch (IllegalStateException e) {
             return "flightsUnavailable";
         }
         model.addAttribute("flights", flightData);
         model.addAttribute("classType", classType);
         model.addAttribute("classFare", classType);
         model.addAttribute("passengerCount", passengersCount);
-        model.addAttribute("totalFare", searchService.getPrice());
+        model.addAttribute("totalFare", searchService.getTotalFare());
 
 
         return "search";
@@ -55,7 +47,7 @@ public class SearchController {
     @RequestMapping(value = "/book/{number}/{classType}/{passengerCount}")
     public String book(@PathVariable("number") Long number, @PathVariable("classType") String classType, @PathVariable("passengerCount") String passengerCount, Model model) throws Exception {
         try {
-            dataUpdater.updateData(number, classType, passengerCount, flightData);
+            updateBooking.updateData(number, classType, passengerCount, flightData);
             model.addAttribute("flights", flightData);
             return "book";
         } catch (Exception e) {
