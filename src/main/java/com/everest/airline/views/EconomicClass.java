@@ -3,7 +3,7 @@ package com.everest.airline.views;
 import com.everest.airline.enums.FareType;
 import com.everest.airline.model.Flight;
 
-public class EconomicClass implements FlightClass {
+public class EconomicClass implements FlightClassType {
     private Flight flight;
 
     public EconomicClass(Flight flight) {

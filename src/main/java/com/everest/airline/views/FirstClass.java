@@ -3,7 +3,7 @@ package com.everest.airline.views;
 import com.everest.airline.enums.FareType;
 import com.everest.airline.model.Flight;
 
-public class FirstClass implements FlightClass{
+public class FirstClass implements FlightClassType {
     private Flight flight;
 
     public FirstClass(Flight flight) {
@@ -21,14 +21,14 @@ public class FirstClass implements FlightClass{
         int capacity = flight.getFirstClassCapacity();
         double result1 = capacity * 0.3;
         double result2 = capacity * 0.5;
-        double result3 =capacity * 0.75;
+        double result3 = capacity * 0.75;
         int availableSeats = flight.getFirstClassSeats();
         if (availableSeats <= (int) result1) {
-            price =getFare();
-        } else if (availableSeats> (int) result1 && availableSeats <= (int) result2) {
+            price = getFare();
+        } else if (availableSeats > (int) result1 && availableSeats <= (int) result2) {
             price = getFare() + (getFare() * 0.2);
         } else if (availableSeats > (int) result2 && availableSeats <= (int) result3) {
-            price =getFare() + (getFare() * 0.35);
+            price = getFare() + (getFare() * 0.35);
         } else if (availableSeats > (int) result3 && availableSeats <= capacity) {
             price = getFare() + (getFare() * 0.50);
         }
