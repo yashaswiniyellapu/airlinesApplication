@@ -22,6 +22,8 @@ public class FlightClassFilter {
             case "economic":
                 test = new EconomicClass(flight);
                 break;
+            case "first":
+                test = new FirstClass(flight);
         }
 
         return test;
