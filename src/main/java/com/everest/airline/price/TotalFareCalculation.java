@@ -1,84 +1,61 @@
 package com.everest.airline.price;
 
-import com.everest.airline.enums.FareType;
+import java.time.LocalDate;
+import java.time.Period;
 
 public class TotalFareCalculation {
-    //    public double totalFare(int passengerCount, String classType)
-//    {
-//        double fare;
-//        switch (classType) {
-//            case "economic":
-//               fare= FareType.ECONOMIC.getFare()*passengerCount;
-//               break;
-//            case "first":
-//                fare= FareType.FIRST.getFare()*passengerCount;
-//                break;
-//                case "second":
-//                fare= FareType.SECOND.getFare()*passengerCount;
-//                break;
-//            default:
-//                throw new IllegalStateException("Unexpected value: " + classType);
-//        }
-//        return fare;
-//    }
-    private int economicCapacity;
-    private int firstClassCapacity;
-    private int secondClassCapacity;
-    private int economicSeats;
-    private int secondClassSeats;
-    private int firstClassSeats;
-    private int capacity;
-    private double basePrice = 0;
-
     private int availableSeats;
+    private int capacity;
+    private double fare;
+    private LocalDate departureDate;
 
-    public TotalFareCalculation(int economicCapacity, int secondClassCapacity, int firstClassCapacity, int economicSeats, int secondClassSeats, int firstClassSeats) {
-        this.economicCapacity = economicCapacity;
-        this.firstClassCapacity = firstClassCapacity;
-        this.secondClassCapacity = secondClassCapacity;
-        this.economicSeats = economicSeats;
-        this.secondClassSeats = secondClassSeats;
-        this.firstClassSeats = firstClassSeats;
+    public TotalFareCalculation(int capacity, int availableSeats, double fare, LocalDate departureDate) {
+        this.availableSeats = availableSeats;
+        this.capacity = capacity;
+        this.fare = fare;
+        this.departureDate = departureDate;
     }
 
-    public double calculateFare() {
+    public double _byAvailableSeats() {
         double price = 0;
         double result1 = capacity * 0.3;
         double result2 = capacity * 0.5;
         double result3 = capacity * 0.75;
         if (availableSeats <= (int) result1) {
-            price = basePrice;
+            price = fare;
         } else if (availableSeats > (int) result1 && availableSeats <= (int) result2) {
-            price = basePrice + (basePrice * 0.2);
+            price = fare + (fare * 0.2);
         } else if (availableSeats > (int) result2 && availableSeats <= (int) result3) {
-            price = basePrice + (basePrice * 0.35);
-        } else if (availableSeats > (int) result3 && availableSeats <= economicCapacity) {
-            price = basePrice + (basePrice * 0.50);
+            price = fare + (fare * 0.35);
+        } else if (availableSeats > (int) result3 && availableSeats <= capacity) {
+            price = fare + (fare * 0.50);
         }
 
         return price;
     }
 
-    public double getTotalFare(String classType) {
-        switch (classType) {
-            case "economic":
-                capacity = economicCapacity;
-                availableSeats = economicSeats;
-                basePrice = FareType.ECONOMIC.getFare();
-
-                break;
-            case "first":
-                capacity = firstClassCapacity;
-                availableSeats = firstClassSeats;
-                basePrice = FareType.FIRST.getFare();
-                break;
-            case "second":
-                capacity = secondClassCapacity;
-                availableSeats = secondClassSeats;
-                basePrice = FareType.SECOND.getFare();
-                break;
-
+    public double _byDays() {
+        double price = 0;
+        LocalDate currentDate = LocalDate.now();
+        Period period = Period.between(departureDate, currentDate);
+        int numberOfDays = period.getDays();
+        if (numberOfDays < 0) {
+            numberOfDays *= (-1);
         }
-        return calculateFare();
+        int TotalNumberOfDays = numberOfDays;
+        if (TotalNumberOfDays > 0 && TotalNumberOfDays <= 3) {
+            int day = 3 - TotalNumberOfDays + 1;
+            price = fare + (fare * day * 0.02);
+        } else if (TotalNumberOfDays > 3 && TotalNumberOfDays <= 10) {
+            int day = 10 - TotalNumberOfDays + 1;
+            price = fare + (fare * day * 0.02);
+        } else if (TotalNumberOfDays > 10) {
+            price = fare;
+        }
+        return price;
+    }
+
+    public double addTotalFare() {
+        return _byDays() + _byAvailableSeats();
     }
 }
