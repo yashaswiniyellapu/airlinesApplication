@@ -2,6 +2,7 @@ package com.everest.airline.services;
 
 import com.everest.airline.database.DataParser;
 import com.everest.airline.model.Flight;
+import com.everest.airline.views.FlightClassFliter;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedWriter;
@@ -10,7 +11,7 @@ import java.io.FileWriter;
 import java.util.List;
 
 @Component
-public class DataUpdater {
+public class BookService {
 
     public void updateData(Long flightNumber, String classType, String passengerCount, List<Flight> flightData) throws Exception {
         for (Flight flight : flightData) {
