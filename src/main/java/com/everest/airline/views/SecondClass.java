@@ -1,7 +1,7 @@
-package com.everest.airline.services;
+package com.everest.airline.views;
 
-import com.everest.airline.enums.FareType;
 import com.everest.airline.model.Flight;
+import com.everest.airline.views.FlightClass;
 
 public class SecondClass extends FlightClass {
     public SecondClass(int seatsType, int numberOfPassengers) {
