@@ -2,9 +2,11 @@ package com.everest.airline.views;
 
 import com.everest.airline.enums.FareType;
 import com.everest.airline.model.Flight;
+import com.everest.airline.price.TotalFareCalculation;
 
 public class EconomicClass implements FlightClassType {
     private Flight flight;
+    private TotalFareCalculation totalFare;
 
     public EconomicClass(Flight flight) {
         this.flight = flight;
@@ -17,19 +19,11 @@ public class EconomicClass implements FlightClassType {
 
     @Override
     public double getTotalFare() {
-        double price = 0;
-        double result1 = flight.getEconomicCapacity() * 0.3;
-        double result2 = flight.getEconomicCapacity() * 0.5;
-        double result3 = flight.getEconomicCapacity() * 0.75;
-        if (flight.getEconomicClassSeats() <= (int) result1) {
-            price = getFare();
-        } else if (flight.getEconomicClassSeats() > (int) result1 && flight.getEconomicClassSeats() <= (int) result2) {
-            price = getFare() + (getFare() * 0.2);
-        } else if (flight.getEconomicClassSeats() > (int) result2 && flight.getEconomicClassSeats() <= (int) result3) {
-            price = getFare() + (getFare() * 0.35);
-        } else if (flight.getEconomicClassSeats() > (int) result3 && flight.getEconomicClassSeats() <= flight.getEconomicCapacity()) {
-            price = getFare() + (getFare() * 0.50);
-        }
+        int capacity = flight.getEconomicCapacity();
+        int availableSeats = flight.getEconomicClassSeats();
+        double price;
+        totalFare = new TotalFareCalculation(capacity, availableSeats, getFare(), flight.getDepartureDate());
+        price = totalFare.addTotalFare();
 
         return price;
     }
