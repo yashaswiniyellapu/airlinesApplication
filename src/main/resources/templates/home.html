@@ -7,33 +7,33 @@
 </head>
 
 <body>
-    <h1>Airline application</h1>
-    <h2 th:text="${message}"></h2>
-    <form action="#" th:action="@{/search}" th:object="${searchForm}" method="post">
-        <label for="from">From</label>
-        <input id="from" name="from" required="required" />
-        <br />
-        <br />
-        <label for="to">To</label>
-        <input id="to" name="to" required="required" />
-        <br />
-        <br />
-        <label for="date">Date of booking</label>
-        <input type="date" name="date" id="date" />
-        <br />
-        <br />
-        <label for="passengersCount">Enter number of passengers</label>
-        <input id="passengersCount" name="passengersCount"  min="0" required="required"/>
-        <br />
-        <br />
-        <select name="classType" id="classType">
-            <option th:value="economic">Economic</option>
-            <option th:value="second">Second</option>
-            <option th:value="first">First</option>
-        </select>
+<h1>Airline application</h1>
+<h2 th:text="${message}"></h2>
+<form action="#" th:action="@{/search}" th:object="${searchForm}" method="post">
+    <label for="from">From</label>
+    <input id="from" name="from" required="required"/>
+    <br/>
+    <br/>
+    <label for="to">To</label>
+    <input id="to" name="to" required="required"/>
+    <br/>
+    <br/>
+    <label for="date">Date of booking</label>
+    <input type="date" name="date" id="date"/>
+    <br/>
+    <br/>
+    <label for="passengersCount">Enter number of passengers</label>
+    <input id="passengersCount" name="passengersCount" min="0" required="required"/>
+    <br/>
+    <br/>
+    <select name="classType" id="classType">
+        <option th:value="economic">Economic</option>
+        <option th:value="second">Second</option>
+        <option th:value="first">First</option>
+    </select>
 
-        <input type="submit" value="Search" />
-    </form>
+    <input type="submit" value="Search"/>
+</form>
 </body>
 
 </html>
