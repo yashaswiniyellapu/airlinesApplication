@@ -17,17 +17,14 @@ public class TotalFareCalculation {
     }
 
     public double _byAvailableSeats() {
-        double price = 0;
-        double result1 = capacity * 0.3;
-        double result2 = capacity * 0.5;
-        double result3 = capacity * 0.75;
-        if (availableSeats <= (int) result1) {
+        double price;
+        if (availableSeats >= capacity*0.7) {
             price = fare;
-        } else if (availableSeats > (int) result1 && availableSeats <= (int) result2) {
+        } else if (availableSeats > capacity*0.5 && availableSeats <= capacity*0.7) {
             price = fare + (fare * 0.2);
-        } else if (availableSeats > (int) result2 && availableSeats <= (int) result3) {
+        } else if (availableSeats > capacity*0.25 && availableSeats <= capacity*0.5) {
             price = fare + (fare * 0.35);
-        } else if (availableSeats > (int) result3 && availableSeats <= capacity) {
+        } else {
             price = fare + (fare * 0.50);
         }
 
@@ -36,6 +33,7 @@ public class TotalFareCalculation {
 
     public double _byDays() {
         double price = 0;
+        double priceByAvailableSeats=_byAvailableSeats();
         LocalDate currentDate = LocalDate.now();
         Period period = Period.between(departureDate, currentDate);
         int numberOfDays = period.getDays();
@@ -45,17 +43,17 @@ public class TotalFareCalculation {
         int TotalNumberOfDays = numberOfDays;
         if (TotalNumberOfDays > 0 && TotalNumberOfDays <= 3) {
             int day = 3 - TotalNumberOfDays + 1;
-            price = fare + (fare * day * 0.02);
+            price = priceByAvailableSeats + (priceByAvailableSeats * day * 0.02);
         } else if (TotalNumberOfDays > 3 && TotalNumberOfDays <= 10) {
             int day = 10 - TotalNumberOfDays + 1;
-            price = fare + (fare * day * 0.02);
+            price = priceByAvailableSeats + (priceByAvailableSeats * day * 0.02);
         } else if (TotalNumberOfDays > 10) {
-            price = fare;
+            price = priceByAvailableSeats;
         }
         return price;
     }
 
-    public double addTotalFare() {
-        return _byDays() + _byAvailableSeats();
+    public double getTotalClassFare() {
+        return _byDays();
     }
 }
