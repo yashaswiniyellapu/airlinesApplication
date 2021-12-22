@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -27,16 +28,21 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/search")
-    public String search(String from, String to, String date, String passengersCount, String classType, Model model) throws Exception {
+    public String search(String from, String to, String date, String passengersCount, String classType, Model model) {
 
         try {
             flightData = searchService.flight(from, to, date, passengersCount, classType);
+            if (flightData.size() == 0) {
+                return "error";
+            }
         } catch (IllegalStateException e) {
             return "flightsUnavailable";
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         model.addAttribute("flights", flightData);
         model.addAttribute("classType", classType);
-        model.addAttribute("classFare", classType);
+        model.addAttribute("classFare", searchService.getFare());
         model.addAttribute("passengerCount", passengersCount);
         model.addAttribute("totalFare", searchService.getTotalFare());
 
@@ -45,14 +51,13 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/book/{number}/{classType}/{passengerCount}")
-    public String book(@PathVariable("number") Long number, @PathVariable("classType") String classType, @PathVariable("passengerCount") String passengerCount, Model model) throws Exception {
+    public String book(@PathVariable("number") Long number, @PathVariable("classType") String classType, @PathVariable("passengerCount") String passengerCount) {
         try {
             updateBooking.updateData(number, classType, passengerCount, flightData);
-            model.addAttribute("flights", flightData);
-            return "book";
-        } catch (Exception e) {
-            return "flightsUnavailable";
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return "book";
 
     }
 }
