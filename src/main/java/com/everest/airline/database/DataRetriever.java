@@ -5,10 +5,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class DataParser {
+public class DataRetriever {
     private File file;
 
-    public DataParser(File file) {
+    public DataRetriever(File file) {
         this.file = file;
     }
 
