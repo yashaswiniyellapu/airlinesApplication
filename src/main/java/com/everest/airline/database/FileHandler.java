@@ -25,7 +25,7 @@ public class FileHandler {
         File[] listOfFiles = directory.listFiles();
         if (listOfFiles != null) {
             for (File file : listOfFiles) {
-                DataParser data = new DataParser(file);
+                DataRetriever data = new DataRetriever(file);
                 String line = data.readFile();
                 String[] fileData = line.split(",");
                 if (validateFileData(fileData)) {
