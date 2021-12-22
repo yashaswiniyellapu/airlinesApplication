@@ -23,8 +23,7 @@ public class EconomicClass implements FlightClassType {
         int availableSeats = flight.getEconomicClassSeats();
         double price;
         totalFare = new TotalFareCalculation(capacity, availableSeats, getFare(), flight.getDepartureDate());
-        price = totalFare.addTotalFare();
-
+        price = totalFare.getTotalClassFare();
         return price;
     }
 
