@@ -1,8 +1,9 @@
 package com.everest.airline.services;
 
 import com.everest.airline.database.FileHandler;
+import com.everest.airline.views.FlightClassFilter;
 import com.everest.airline.model.Flight;
-import com.everest.airline.price.TotalFareCalculation;
+import com.everest.airline.views.FlightClassType;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
@@ -13,11 +14,17 @@ import java.util.List;
 
 @Component
 public class SearchService {
-    private double totalFare;
+
+    private FlightClassType flightClassType;
+    private FlightClassFilter filter;
+   private double totalFare;
+   private double totalClassFare;
+
 
     public List<Flight> flight(String source, String destination, String date, String passengersCount, String classType) throws Exception {
         List<String[]> fileData;
         List<Flight> flightList = new ArrayList<>();
+        Flight flight;
         FileHandler fileHandler = new FileHandler(source, destination, date);
         fileData = fileHandler.getFileData(Path.of("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData"));
         for (String[] name : fileData) {
@@ -35,23 +42,33 @@ public class SearchService {
             int numberOfPassengers = Integer.parseInt(passengersCount);
             int firstClassCapacity = Integer.parseInt(name[11]);
             int secondClassCapacity = Integer.parseInt(name[12]);
+            flight = new Flight(flightNumber, from, to, departureDate, departureTime, arrivalTime, availableSeats, economicClassSeats, secondClassSeats, firstClassSeats, economicCapacity, secondClassCapacity, firstClassCapacity);
+                filter= new FlightClassFilter(classType);
+                flightClassType = filter.filterClass(flight);
+                if(flightClassType.validateData(numberOfPassengers))
+                {
+                    flightList.add(new Flight(flightNumber, from, to, departureDate, departureTime, arrivalTime, availableSeats, economicClassSeats, secondClassSeats, firstClassSeats, economicCapacity, secondClassCapacity, firstClassCapacity));
+                    totalFare=flightClassType.getTotalFare()*numberOfPassengers;
+                    totalClassFare = flightClassType.getTotalFare();
 
-            if (new ValidateData().checkFlightData(numberOfPassengers, classType, economicClassSeats, firstClassSeats, secondClassSeats)) {
-                flightList.add(new Flight(flightNumber, from, to, departureDate, departureTime, arrivalTime, availableSeats, economicClassSeats, secondClassSeats, firstClassSeats, economicCapacity, secondClassCapacity, firstClassCapacity));
-                TotalFareCalculation fare = new TotalFareCalculation(economicCapacity, secondClassCapacity, firstClassCapacity, economicClassSeats, secondClassSeats, firstClassSeats);
-                totalFare = fare.getTotalFare(classType);
+                }
+                else
+                {
+                    throw new IllegalStateException();
+                }
 
-            } else {
-                throw new IllegalStateException();
             }
-
-        }
-
         return flightList;
     }
 
-    public double getTotalFare() {
+    public double getTotalFare()
+    {
         return totalFare;
+
+    }
+    public double getFare()
+    {
+        return totalClassFare;
     }
 }
 
