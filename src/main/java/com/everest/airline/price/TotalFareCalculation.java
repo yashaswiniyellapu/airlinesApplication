@@ -33,21 +33,26 @@ public class TotalFareCalculation {
 
     public double _byDays() {
         double price = 0;
+        int totalNumberOfDays;
         double priceByAvailableSeats=_byAvailableSeats();
         LocalDate currentDate = LocalDate.now();
         Period period = Period.between(departureDate, currentDate);
         int numberOfDays = period.getDays();
-        if (numberOfDays < 0) {
-            numberOfDays *= (-1);
+        if(numberOfDays<0)
+        {
+            totalNumberOfDays = (int) Math.copySign(numberOfDays,-1);
         }
-        int TotalNumberOfDays = numberOfDays;
-        if (TotalNumberOfDays > 0 && TotalNumberOfDays <= 3) {
-            int day = 3 - TotalNumberOfDays + 1;
+        else {
+            totalNumberOfDays=numberOfDays;
+        }
+        System.out.println(totalNumberOfDays);
+        if (totalNumberOfDays > 0 && totalNumberOfDays <= 3) {
+            int day = 3 - totalNumberOfDays + 1;
             price = priceByAvailableSeats + (priceByAvailableSeats * day * 0.02);
-        } else if (TotalNumberOfDays > 3 && TotalNumberOfDays <= 10) {
-            int day = 10 - TotalNumberOfDays + 1;
+        } else if (totalNumberOfDays > 3 && totalNumberOfDays <= 10) {
+            int day = 10 - totalNumberOfDays + 1;
             price = priceByAvailableSeats + (priceByAvailableSeats * day * 0.02);
-        } else if (TotalNumberOfDays > 10) {
+        } else if (totalNumberOfDays > 10) {
             price = priceByAvailableSeats;
         }
         return price;
