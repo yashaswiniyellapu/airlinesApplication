@@ -41,9 +41,6 @@ public class BookService {
                                 writer.close();
                                 break;
                             }
-                            else {
-                                System.out.println("line is null");
-                            }
                         }
                     }
 

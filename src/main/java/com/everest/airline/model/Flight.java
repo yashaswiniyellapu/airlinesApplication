@@ -88,4 +88,7 @@ public class Flight {
         return firstClassCapacity;
     }
 
+
+
+
 }
