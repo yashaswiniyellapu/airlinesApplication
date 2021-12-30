@@ -23,8 +23,8 @@ public class EconomicClass implements FlightClassType, FlightDataCollector {
 
     @Override
     public double getTotalFare() {
-        int capacity = flight.getEconomicCapacity();
-        int availableSeats = flight.getEconomicClassSeats();
+        int capacity = getCapacity();
+        int availableSeats =getSeatsLeft();
         double price;
         totalFare = new TotalFareCalculation(capacity, availableSeats, getFare(), flight.getDepartureDate());
         price = totalFare.getTotalClassFare();
@@ -36,12 +36,12 @@ public class EconomicClass implements FlightClassType, FlightDataCollector {
         String line = null;
         if (flightNumber == flight.getNumber()) {
             int availableSeats = flight.getAvailableSeats() - passengerCount;
-            int seatsLeft = flight.getEconomicClassSeats() - passengerCount;
+            int seatsLeft = getSeatsLeft() - passengerCount;
             line = flight.getNumber() + "," + flight.getSource() + "," + flight.getDestination() +
                     "," + flight.getDepartureDate() + "," + flight.getDepartureTime() + "," +
                     flight.getArrivalTime() + "," + availableSeats +
                     "," + seatsLeft + "," + flight.getSecondClassSeats() + "," + flight.getFirstClassSeats() + "," +
-                    flight.getEconomicCapacity() + "," + flight.getSecondClassCapacity() + "," + flight.getFirstClassCapacity();
+                    getCapacity() + "," + flight.getSecondClassCapacity() + "," + flight.getFirstClassCapacity();
         }
         return line;
 
@@ -49,7 +49,7 @@ public class EconomicClass implements FlightClassType, FlightDataCollector {
 
     @Override
     public boolean validateData(int passengerCount) {
-        if (passengerCount <= flight.getEconomicClassSeats()) {
+        if (passengerCount <= getSeatsLeft()) {
             return true;
         }
         return false;
