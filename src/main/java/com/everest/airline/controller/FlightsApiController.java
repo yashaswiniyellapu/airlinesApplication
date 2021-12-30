@@ -8,15 +8,27 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
     public class FlightsApiController {
-        private List<Flight> flights = FileOperations.getFlights();
+        private List<Flight> flights= FileOperations.getFlights();
         @GetMapping("/flights")
         public List<Flight> getAllFlights(@PathVariable Optional<String> number) {
             System.out.println("number" + number);
+            List<Flight> specificFlight;
+            if(number.isPresent())
+            {
+                specificFlight= flights.stream().filter(f-> number.toString().equalsIgnoreCase(Long.toString(f.getNumber()))).collect(Collectors.toList());
+                return specificFlight;
+            }
           return flights;
         }
+//    @GetMapping("/flights/{number}")
+//    public List<Flight> getFlights(@PathVariable Optional<String> number) {
+//        System.out.println("number" + number);
+//        return flights;
+//    }
 
         // CUD
         @PostMapping("/flights")

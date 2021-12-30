@@ -19,10 +19,6 @@ public class FileHandler {
 
     }
 
-    public FileHandler() {
-
-    }
-
     public List<String[]> getFileData(Path filePath) throws IOException {
         List<String[]> fileList = new ArrayList<>();
         File directory = new File(String.valueOf(filePath));

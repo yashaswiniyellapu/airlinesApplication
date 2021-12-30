@@ -2,15 +2,19 @@ package com.everest.airline.views;
 
 import com.everest.airline.enums.FareType;
 import com.everest.airline.model.Flight;
+import com.everest.airline.database.FlightDataCollector;
 import com.everest.airline.price.TotalFareCalculation;
 
-public class EconomicClass implements FlightClassType {
+public class EconomicClass implements FlightClassType, FlightDataCollector {
     private Flight flight;
     private TotalFareCalculation totalFare;
+    private int capacity;
+    private int seatsLeft;
 
     public EconomicClass(Flight flight) {
         this.flight = flight;
     }
+    public EconomicClass(){}
 
     @Override
     public double getFare() {
@@ -49,5 +53,27 @@ public class EconomicClass implements FlightClassType {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int getSeatsLeft() {
+        return seatsLeft;
+    }
+
+    @Override
+    public void setSeatsLeft(int seatsLeft) {
+        this.seatsLeft=seatsLeft;
+
+    }
+
+    @Override
+    public int getCapacity() {
+        return capacity;
+    }
+
+    @Override
+    public void setCapacity(int capacity) {
+        this.capacity=capacity;
+
     }
 }

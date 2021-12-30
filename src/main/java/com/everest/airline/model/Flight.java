@@ -1,6 +1,8 @@
 package com.everest.airline.model;
 
 
+import com.everest.airline.database.FlightDataAssign;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -34,6 +36,7 @@ public class Flight {
         this.secondClassCapacity = secondClassCapacity;
         this.firstClassCapacity = firstClassCapacity;
     }
+
 
     public long getNumber() {
         return number;

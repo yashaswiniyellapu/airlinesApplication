@@ -6,17 +6,17 @@ import com.everest.airline.model.Flight;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class FileOperations {
     private static final List<Long> deletedId=new ArrayList();
     public static List<Flight> getFlights() {
-        List<Flight> flights = new ArrayList<>();
+        List<Flight> allFlights = new ArrayList<>();
         File directory = new File("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData");
         File[] listOfFiles = directory.listFiles();
         for (File file : Objects.requireNonNull(listOfFiles)) {
@@ -36,15 +36,15 @@ public class FileOperations {
                 int firstClassCapacity = Integer.parseInt(line[11]);
                 int secondClassCapacity = Integer.parseInt(line[12]);
                 Flight flight = new Flight(flightNumber, from, to, departureDate, departureTime, arrivalTime, availableSeats, economicClassSeats, secondClassSeats, firstClassSeats, economicCapacity, secondClassCapacity, firstClassCapacity);
-                flights.add(flight);
+                allFlights.add(flight);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         }
-        flights.sort(new FlightComparator());
-        return flights;
+        allFlights.sort(new FlightComparator());
+        return allFlights;
     }
 
     public static void createFile(Long flightNumber, Flight flight) {

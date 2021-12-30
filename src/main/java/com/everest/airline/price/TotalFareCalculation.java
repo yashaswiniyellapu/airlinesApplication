@@ -40,7 +40,8 @@ public class TotalFareCalculation {
         int numberOfDays = period.getDays();
         if(numberOfDays<0)
         {
-            totalNumberOfDays = (int) Math.copySign(numberOfDays,-1);
+            System.out.println(numberOfDays+" numberOfDays");
+            totalNumberOfDays = (int) Math.copySign(numberOfDays,1);
         }
         else {
             totalNumberOfDays=numberOfDays;

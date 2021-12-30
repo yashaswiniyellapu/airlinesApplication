@@ -1,6 +1,7 @@
 package com.everest.airline.services;
 
 import com.everest.airline.database.FileHandler;
+import com.everest.airline.database.FlightDataAssign;
 import com.everest.airline.views.FlightClassFilter;
 import com.everest.airline.model.Flight;
 import com.everest.airline.views.FlightClassType;
@@ -19,6 +20,7 @@ public class SearchService {
     private FlightClassFilter filter;
    private double totalFare;
    private double totalClassFare;
+    private FlightDataAssign economicClass;
 
 
     public List<Flight> flight(String source, String destination, String date, String passengersCount, String classType) throws Exception {
@@ -42,8 +44,14 @@ public class SearchService {
             int numberOfPassengers = Integer.parseInt(passengersCount);
             int firstClassCapacity = Integer.parseInt(name[11]);
             int secondClassCapacity = Integer.parseInt(name[12]);
+            economicClass = new FlightDataAssign(economicClassSeats, secondClassSeats, firstClassSeats, economicCapacity, secondClassCapacity, firstClassCapacity);
+            System.out.println(economicClass.getEconomicClassData().getCapacity()+" capacity "+economicCapacity);
+
             flight = new Flight(flightNumber, from, to, departureDate, departureTime, arrivalTime, availableSeats, economicClassSeats, secondClassSeats, firstClassSeats, economicCapacity, secondClassCapacity, firstClassCapacity);
-                filter= new FlightClassFilter(classType);
+
+           // flight = new Flight(flightNumber, from, to, departureDate, departureTime, arrivalTime, availableSeats,economicClass );
+
+            filter= new FlightClassFilter(classType);
                 flightClassType = filter.filterClass(flight);
                 if(flightClassType.validateData(numberOfPassengers))
                 {
