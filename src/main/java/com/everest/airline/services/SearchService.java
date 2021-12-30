@@ -47,7 +47,7 @@ public class SearchService {
                 flightClassType = filter.filterClass(flight);
                 if(flightClassType.validateData(numberOfPassengers))
                 {
-                    flightList.add(new Flight(flightNumber, from, to, departureDate, departureTime, arrivalTime, availableSeats, economicClassSeats, secondClassSeats, firstClassSeats, economicCapacity, secondClassCapacity, firstClassCapacity));
+                    flightList.add(flight);
                     totalFare=flightClassType.getTotalFare()*numberOfPassengers;
                     totalClassFare = flightClassType.getTotalFare();
 
