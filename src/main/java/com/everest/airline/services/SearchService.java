@@ -47,15 +47,13 @@ public class SearchService {
             economicClass = new FlightDataAssign(economicClassSeats, secondClassSeats, firstClassSeats, economicCapacity, secondClassCapacity, firstClassCapacity);
             System.out.println(economicClass.getEconomicClassData().getCapacity()+" capacity "+economicCapacity);
 
-            flight = new Flight(flightNumber, from, to, departureDate, departureTime, arrivalTime, availableSeats, economicClassSeats, secondClassSeats, firstClassSeats, economicCapacity, secondClassCapacity, firstClassCapacity);
-
-           // flight = new Flight(flightNumber, from, to, departureDate, departureTime, arrivalTime, availableSeats,economicClass );
+           flight = new Flight(flightNumber, from, to, departureDate, departureTime, arrivalTime, availableSeats,economicClass );
 
             filter= new FlightClassFilter(classType);
                 flightClassType = filter.filterClass(flight);
                 if(flightClassType.validateData(numberOfPassengers))
                 {
-                    flightList.add(new Flight(flightNumber, from, to, departureDate, departureTime, arrivalTime, availableSeats, economicClassSeats, secondClassSeats, firstClassSeats, economicCapacity, secondClassCapacity, firstClassCapacity));
+                    flightList.add(flight);
                     totalFare=flightClassType.getTotalFare()*numberOfPassengers;
                     totalClassFare = flightClassType.getTotalFare();
 
