@@ -15,6 +15,8 @@ public class Flight {
     private LocalTime arrivalTime;
     private int availableSeats;
     private FlightDataAssign economicClass;
+    private FlightDataAssign firstClass;
+    private FlightDataAssign secondClass;
 
 //    public Flight(long number, String source, String destination, LocalDate departureDate, LocalTime departureTime, LocalTime arrivalTime, int availableSeats, int economicSeats, int secondClassSeats, int firstClassSeats, int economicCapacity, int secondClassCapacity, int firstClassCapacity) {
 //        this.number = number;
@@ -75,5 +77,14 @@ public class Flight {
 
     public FlightDataAssign getEconomicClass() {
         return economicClass;
+    }
+    public String toString(int economicClassSeats, int secondClassSeats, int firstClassSeats, int availableSeats) {
+        return getNumber() + "," + getSource() + "," + getDestination() +
+                "," + getDepartureDate() + "," + getDepartureTime() + "," +
+                getArrivalTime() + "," + availableSeats +
+                "," + economicClassSeats + "," + secondClassSeats + "," + firstClassSeats+ "," +
+                economicClass.getEconomicClassData().getCapacity() + "," +
+                secondClass.getEconomicClassData().getCapacity() + "," + firstClass.getEconomicClassData().getCapacity();
+
     }
 }
