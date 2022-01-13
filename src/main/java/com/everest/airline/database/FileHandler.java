@@ -2,9 +2,13 @@ package com.everest.airline.database;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FileHandler {
     private String from;
@@ -48,6 +52,18 @@ public class FileHandler {
         }
 
         return false;
+    }
+    public static List<Path> getListOfFiles() {
+//        File directory = new File("/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData");
+//        File[] listOfFiles = directory.listFiles();
+//        return  listOfFiles;
+        String directoryLocation = "/Users/yashaswiniyellapu/Documents/airlines/src/main/java/com/everest/airline/database/flightsData";
+        try {
+            return Files.list(Paths.get(directoryLocation)).collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
