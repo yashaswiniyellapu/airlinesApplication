@@ -1,7 +1,6 @@
 package com.everest.airline.model;
 
 
-import com.everest.airline.database.FlightDataAssign;
 import com.everest.airline.views.FlightClassData;
 
 import java.time.LocalDate;
@@ -15,7 +14,6 @@ public class Flight {
     private LocalTime departureTime;
     private LocalTime arrivalTime;
     private int availableSeats;
-    private FlightDataAssign flightClass;
     private FlightClassData economicClass;
     private FlightClassData secondClass;
     private FlightClassData firstClass;
@@ -61,19 +59,16 @@ public class Flight {
         return availableSeats;
     }
 
-    public String toString(int economicClassSeats, int secondClassSeats, int firstClassSeats, int availableSeats) {
-        return getNumber() + "," + getSource() + "," + getDestination() +
-                "," + getDepartureDate() + "," + getDepartureTime() + "," +
-                getArrivalTime() + "," + availableSeats +
-                "," + economicClassSeats + "," + secondClassSeats + "," + firstClassSeats + "," +
-                flightClass.getEconomicClassData().getCapacity() + "," +
-                flightClass.getSecondClassData().getCapacity() + "," + flightClass.getFirstClassData().getCapacity();
+//    public String toString(int economicClassSeats, int secondClassSeats, int firstClassSeats, int availableSeats) {
+//        return getNumber() + "," + getSource() + "," + getDestination() +
+//                "," + getDepartureDate() + "," + getDepartureTime() + "," +
+//                getArrivalTime() + "," + availableSeats +
+//                "," + economicClassSeats + "," + secondClassSeats + "," + firstClassSeats + "," +
+//                flightClass.getEconomicClassData().getCapacity() + "," +
+//                flightClass.getSecondClassData().getCapacity() + "," + flightClass.getFirstClassData().getCapacity();
+//
+//    }
 
-    }
-
-    public FlightDataAssign getFlightClass() {
-        return flightClass;
-    }
 
     public FlightClassData getEconomicClass() {
         return economicClass;

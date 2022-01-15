@@ -1,6 +1,7 @@
 package com.everest.airline.views;
 
 public interface FlightClassData {
+    static FlightClassData classInstance = null;
 
     double getFare();
 
@@ -17,4 +18,8 @@ public interface FlightClassData {
     int getCapacity();
 
     void setCapacity(int capacity);
+
+    static FlightClassData getInstance() {
+        return classInstance;
+    }
 }

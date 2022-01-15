@@ -1,11 +1,10 @@
 package com.everest.airline.views;
 
-import com.everest.airline.database.FlightClassDataTest;
 import com.everest.airline.enums.FareType;
 import com.everest.airline.model.Flight;
 import com.everest.airline.price.TotalFareCalculation;
 
-public class SecondClass implements FlightClassData, FlightClassDataTest {
+public class SecondClass implements FlightClassData {
     private Flight flight;
     private TotalFareCalculation totalFare;
     private int capacity;
@@ -38,7 +37,7 @@ public class SecondClass implements FlightClassData, FlightClassDataTest {
     public String getUpdatedData(Long flightNumber, int passengerCount) {
         int seatsLeft = getSeatsLeft()-passengerCount;
         int availableSeatsLeft = flight.getAvailableSeats()-passengerCount;
-        return flight.toString(flight.getFlightClass().getEconomicClassData().getSeatsLeft(),seatsLeft,flight.getFlightClass().getFirstClassData().getSeatsLeft(),availableSeatsLeft);
+        return flight.toString(flight.getFlightClass().getEconom icClassData().getSeatsLeft(),seatsLeft,flight.getFlightClass().getFirstClassData().getSeatsLeft(),availableSeatsLeft);
     }
 
     @Override

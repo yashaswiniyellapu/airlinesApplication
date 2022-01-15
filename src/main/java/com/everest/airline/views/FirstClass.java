@@ -1,11 +1,10 @@
 package com.everest.airline.views;
 
-import com.everest.airline.database.FlightClassDataTest;
 import com.everest.airline.enums.FareType;
 import com.everest.airline.model.Flight;
 import com.everest.airline.price.TotalFareCalculation;
 
-public class FirstClass implements FlightClassData, FlightClassDataTest {
+public class FirstClass implements FlightClassData {
     private Flight flight;
     private TotalFareCalculation totalFare;
     private int capacity;

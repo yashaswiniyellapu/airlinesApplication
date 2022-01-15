@@ -2,7 +2,6 @@ package com.everest.airline.services;
 
 import com.everest.airline.database.DataReader;
 import com.everest.airline.database.DirectoryReader;
-import com.everest.airline.database.FlightDataAssign;
 import com.everest.airline.database.RetrieveFlightClassObjects;
 import com.everest.airline.model.Flight;
 import com.everest.airline.views.FlightClassData;
