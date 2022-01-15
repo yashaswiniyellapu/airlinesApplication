@@ -1,6 +1,6 @@
 package com.everest.airline.views;
 
-public interface FlightClassType {
+public interface FlightClassData {
 
     double getFare();
 
@@ -9,4 +9,12 @@ public interface FlightClassType {
     String getUpdatedData(Long flightNumber, int passengerCount);
 
     boolean validateData(int passengerCount);
+
+    int getSeatsLeft();
+
+    void setSeatsLeft(int seatsLeft);
+
+    int getCapacity();
+
+    void setCapacity(int capacity);
 }

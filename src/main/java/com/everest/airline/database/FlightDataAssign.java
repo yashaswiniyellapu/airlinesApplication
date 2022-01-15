@@ -1,6 +1,8 @@
 package com.everest.airline.database;
 
 import com.everest.airline.views.EconomicClass;
+import com.everest.airline.views.FirstClass;
+import com.everest.airline.views.SecondClass;
 
 public class FlightDataAssign {
     private int economicClassSeats;
@@ -9,9 +11,9 @@ public class FlightDataAssign {
     private int economicCapacity;
     private int secondClassCapacity;
     private int firstClassCapacity;
-    private FlightDataCollector economicClass;
-    private FlightDataCollector firstClass;
-    private FlightDataCollector secondClass;
+    private FlightClassDataTest economicClass;
+    private FlightClassDataTest firstClass;
+    private FlightClassDataTest secondClass;
 
 
     public FlightDataAssign(int economicClassSeats, int firstClassSeats, int secondClassSeats, int economicCapacity, int secondClassCapacity, int firstClassCapacity) {
@@ -22,10 +24,24 @@ public class FlightDataAssign {
         this.secondClassCapacity = secondClassCapacity;
         this.firstClassCapacity = firstClassCapacity;
     }
-    public FlightDataCollector getEconomicClassData() {
+    public FlightClassDataTest getEconomicClassData() {
         economicClass = new EconomicClass();
         economicClass.setCapacity(economicCapacity);
         economicClass.setSeatsLeft(economicClassSeats);
         return economicClass;
+    }
+    public FlightClassDataTest getFirstClassData()
+    {
+        firstClass = new FirstClass();
+        firstClass.setCapacity(firstClassCapacity);
+        economicClass.setSeatsLeft(firstClassSeats);
+        return firstClass;
+    }
+    public FlightClassDataTest getSecondClassData()
+    {
+        secondClass = new SecondClass();
+        firstClass.setCapacity(secondClassCapacity);
+        economicClass.setSeatsLeft(secondClassSeats);
+        return secondClass;
     }
 }

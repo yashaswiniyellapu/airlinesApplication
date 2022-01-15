@@ -2,10 +2,10 @@ package com.everest.airline.views;
 
 import com.everest.airline.enums.FareType;
 import com.everest.airline.model.Flight;
-import com.everest.airline.database.FlightDataCollector;
+import com.everest.airline.database.FlightClassDataTest;
 import com.everest.airline.price.TotalFareCalculation;
 
-public class EconomicClass implements FlightClassType, FlightDataCollector {
+public class EconomicClass implements FlightClassDataTest, FlightClassData {
     private Flight flight;
     private TotalFareCalculation totalFare;
     private int capacity;
@@ -33,36 +33,26 @@ public class EconomicClass implements FlightClassType, FlightDataCollector {
 
     @Override
     public String getUpdatedData(Long flightNumber, int passengerCount) {
-        String line = null;
-        if (flightNumber == flight.getNumber()) {
-            int availableSeats = flight.getAvailableSeats() - passengerCount;
-            int seatsLeft = getSeatsLeft() - passengerCount;
-            line = flight.getNumber() + "," + flight.getSource() + "," + flight.getDestination() +
-                    "," + flight.getDepartureDate() + "," + flight.getDepartureTime() + "," +
-                    flight.getArrivalTime() + "," + availableSeats +
-                    "," + seatsLeft + "," + flight.getSecondClassSeats() + "," + flight.getFirstClassSeats() + "," +
-                    getCapacity() + "," + flight.getSecondClassCapacity() + "," + flight.getFirstClassCapacity();
-        }
-        return line;
-
+        int seatsLeft = getSeatsLeft()-passengerCount;
+        int availableSeatsLeft = flight.getAvailableSeats()-passengerCount;
+        return flight.toString(seatsLeft,flight.getFlightClass().getEconomicClassData().getSeatsLeft(),flight.getFlightClass().getEconomicClassData().getSeatsLeft(),availableSeatsLeft);
     }
 
     @Override
     public boolean validateData(int passengerCount) {
-        if (passengerCount <= getSeatsLeft()) {
-            return true;
-        }
-        return false;
+        return passengerCount <= getSeatsLeft();
     }
 
     @Override
     public int getSeatsLeft() {
+        System.out.println("getSeatsLeft "+ seatsLeft);
         return seatsLeft;
     }
 
     @Override
     public void setSeatsLeft(int seatsLeft) {
         this.seatsLeft=seatsLeft;
+        System.out.println("seatsLeft "+ seatsLeft+ " this.seatsLeft "+ this.seatsLeft);
 
     }
 

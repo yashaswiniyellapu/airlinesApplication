@@ -5,13 +5,13 @@ import com.everest.airline.model.Flight;
 public class FlightClassFilter {
     private String classType;
 
-    private FlightClassType type;
+    private FlightClassData type;
 
     public FlightClassFilter(String classType) {
         this.classType = classType;
     }
 
-    public FlightClassType filterClass(Flight flight) {
+    public FlightClassData filterClass(Flight flight) {
 
         switch (classType) {
             case "economic":

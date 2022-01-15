@@ -1,16 +1,23 @@
 package com.everest.airline.views;
 
+import com.everest.airline.database.FlightClassDataTest;
 import com.everest.airline.enums.FareType;
 import com.everest.airline.model.Flight;
 import com.everest.airline.price.TotalFareCalculation;
 
-public class FirstClass implements FlightClassType {
+public class FirstClass implements FlightClassData, FlightClassDataTest {
     private Flight flight;
     private TotalFareCalculation totalFare;
+    private int capacity;
+    private int seatsLeft;
 
 
     public FirstClass(Flight flight) {
         this.flight = flight;
+    }
+
+    public FirstClass() {
+
     }
 
     @Override
@@ -20,34 +27,47 @@ public class FirstClass implements FlightClassType {
 
     @Override
     public double getTotalFare() {
-        int capacity = flight.getFirstClassCapacity();
-        int availableSeats = flight.getFirstClassSeats();
+        int capacity = getCapacity();
+        int availableSeats = getSeatsLeft();
         double price;
         totalFare = new TotalFareCalculation(capacity, availableSeats, getFare(), flight.getDepartureDate());
         price = totalFare.getTotalClassFare();
         return price;
     }
-
-    @Override
     public String getUpdatedData(Long flightNumber, int passengerCount) {
-        String line = null;
-        if (flightNumber == flight.getNumber()) {
-            int availableSeats = flight.getAvailableSeats() - passengerCount;
-            int seatsLeft = flight.getFirstClassSeats() - passengerCount;
-            line = flight.getNumber() + "," + flight.getSource() + "," + flight.getDestination() +
-                    "," + flight.getDepartureDate() + "," + flight.getDepartureTime() + "," +
-                    flight.getArrivalTime() + "," + availableSeats +
-                    "," + flight.getEconomicClassSeats() + "," + flight.getSecondClassSeats() + "," + seatsLeft + "," +
-                    flight.getEconomicCapacity() + "," + flight.getSecondClassCapacity() + "," + flight.getFirstClassCapacity();
-        }
-        return line;
+        int seatsLeft = getSeatsLeft()-passengerCount;
+        int availableSeatsLeft = flight.getAvailableSeats()-passengerCount;
+        return flight.toString(flight.getFlightClass().getEconomicClassData().getSeatsLeft(),flight.getFlightClass().getSecondClassData().getSeatsLeft(),seatsLeft,availableSeatsLeft);
     }
+
 
     @Override
     public boolean validateData(int passengerCount) {
-        if (passengerCount <= flight.getFirstClassSeats()) {
+        if (passengerCount <= getSeatsLeft()) {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int getSeatsLeft() {
+        return seatsLeft;
+    }
+
+    @Override
+    public void setSeatsLeft(int seatsLeft) {
+        this.seatsLeft=seatsLeft;
+
+    }
+
+    @Override
+    public int getCapacity() {
+        return capacity;
+    }
+
+    @Override
+    public void setCapacity(int capacity) {
+        this.capacity=capacity;
+
     }
 }

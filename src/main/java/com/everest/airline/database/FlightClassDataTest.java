@@ -1,6 +1,6 @@
 package com.everest.airline.database;
 
-public interface FlightDataCollector {
+public interface FlightClassDataTest {
 
     int getSeatsLeft();
 

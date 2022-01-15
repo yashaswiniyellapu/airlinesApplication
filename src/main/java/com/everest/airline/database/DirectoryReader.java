@@ -8,14 +8,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class FileHandler {
+public class DirectoryReader {
     private String from;
     private String to;
     private String departureDate;
 
-    public FileHandler(String from, String to, String date) {
+    public DirectoryReader(String from, String to, String date) {
 
         this.from = from;
         this.to = to;
@@ -29,7 +28,7 @@ public class FileHandler {
         File[] listOfFiles = directory.listFiles();
         if (listOfFiles != null) {
             for (File file : listOfFiles) {
-                DataRetriever data = new DataRetriever(file);
+                DataReader data = new DataReader(file);
                 String line = data.readFile();
                 String[] fileData = line.split(",");
                 if (validateFileData(fileData)) {

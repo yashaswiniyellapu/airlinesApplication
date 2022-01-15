@@ -2,6 +2,7 @@ package com.everest.airline.model;
 
 
 import com.everest.airline.database.FlightDataAssign;
+import com.everest.airline.views.FlightClassData;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -14,28 +15,12 @@ public class Flight {
     private LocalTime departureTime;
     private LocalTime arrivalTime;
     private int availableSeats;
-    private FlightDataAssign economicClass;
-    private FlightDataAssign firstClass;
-    private FlightDataAssign secondClass;
+    private FlightDataAssign flightClass;
+    private FlightClassData economicClass;
+    private FlightClassData secondClass;
+    private FlightClassData firstClass;
 
-//    public Flight(long number, String source, String destination, LocalDate departureDate, LocalTime departureTime, LocalTime arrivalTime, int availableSeats, int economicSeats, int secondClassSeats, int firstClassSeats, int economicCapacity, int secondClassCapacity, int firstClassCapacity) {
-//        this.number = number;
-//        this.source = source;
-//        this.destination = destination;
-//        this.departureDate = departureDate;
-//        this.departureTime = departureTime;
-//        this.arrivalTime = arrivalTime;
-//        this.availableSeats = availableSeats;
-//        this.secondClassSeats = secondClassSeats;
-//        this.firstClassSeats = firstClassSeats;
-//        this.economicClassSeats = economicSeats;
-//        this.economicCapacity = economicCapacity;
-//        this.secondClassCapacity = secondClassCapacity;
-//        this.firstClassCapacity = firstClassCapacity;
-//    }
-
-
-    public Flight(long number, String source, String destination, LocalDate departureDate, LocalTime departureTime, LocalTime arrivalTime, int availableSeats, FlightDataAssign economicClass) {
+    public Flight(long number, String source, String destination, LocalDate departureDate, LocalTime departureTime, LocalTime arrivalTime, int availableSeats,FlightClassData economicClass,FlightClassData secondClass,FlightClassData firstClass) {
         this.number = number;
         this.source = source;
         this.destination = destination;
@@ -44,6 +29,8 @@ public class Flight {
         this.arrivalTime = arrivalTime;
         this.availableSeats = availableSeats;
         this.economicClass = economicClass;
+        this.secondClass = secondClass;
+        this.firstClass = firstClass;
     }
 
     public long getNumber() {
@@ -74,17 +61,33 @@ public class Flight {
         return availableSeats;
     }
 
-
-    public FlightDataAssign getEconomicClass() {
-        return economicClass;
-    }
     public String toString(int economicClassSeats, int secondClassSeats, int firstClassSeats, int availableSeats) {
         return getNumber() + "," + getSource() + "," + getDestination() +
                 "," + getDepartureDate() + "," + getDepartureTime() + "," +
                 getArrivalTime() + "," + availableSeats +
-                "," + economicClassSeats + "," + secondClassSeats + "," + firstClassSeats+ "," +
-                economicClass.getEconomicClassData().getCapacity() + "," +
-                secondClass.getEconomicClassData().getCapacity() + "," + firstClass.getEconomicClassData().getCapacity();
+                "," + economicClassSeats + "," + secondClassSeats + "," + firstClassSeats + "," +
+                flightClass.getEconomicClassData().getCapacity() + "," +
+                flightClass.getSecondClassData().getCapacity() + "," + flightClass.getFirstClassData().getCapacity();
 
+    }
+
+    public FlightDataAssign getFlightClass() {
+        return flightClass;
+    }
+
+    public FlightClassData getEconomicClass() {
+        return economicClass;
+    }
+
+    public FlightClassData getSecondClass() {
+        return secondClass;
+    }
+
+    public void setSecondClass(FlightClassData secondClass) {
+        this.secondClass = secondClass;
+    }
+
+    public FlightClassData getFirstClass() {
+        return firstClass;
     }
 }
