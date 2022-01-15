@@ -1,7 +1,5 @@
 package com.everest.airline.controller;
 
-import com.everest.airline.database.DataReader;
-
 import com.everest.airline.model.Flight;
 import com.everest.airline.services.BookService;
 import com.everest.airline.services.SearchService;
@@ -26,15 +24,11 @@ public class SearchController {
 
     @RequestMapping(value = "/")
     public String home() {
-        System.out.println(DataReader.getFilesData());
-
-
         return "home";
     }
+
     @RequestMapping(value = "/search")
     public String search(String from, String to, String date, String passengersCount, String classType, Model model) {
-        System.out.println( searchService.testFlightObject(from, to, date,passengersCount,classType));
-
 
         try {
             flightData = searchService.flight(from, to, date, passengersCount, classType);

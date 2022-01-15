@@ -4,19 +4,18 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 
-public class DataReader {
+public class DataRetriever {
     private File file;
     private HashMap<Integer, String[]> fileData;
 
-    public DataReader(File file) {
+    public DataRetriever(File file) {
         this.file = file;
     }
 
-    public DataReader() {
+    public DataRetriever() {
     }
 
     public String readFile() throws IOException {
@@ -37,8 +36,8 @@ public class DataReader {
 //
 //    }
 
-    public static Set<Map.Entry<String, String[]>> getFilesData() {
-        return Objects.requireNonNull(DirectoryReader.getListOfFiles()).stream().map(file -> {
+    public static Map<String, String[]> getFilesData() {
+        return Objects.requireNonNull(FileHandler.getListOfFiles()).stream().map(file -> {
             try {
                 return new BufferedReader(new FileReader(String.valueOf(file))).readLine().split(",");
             } catch (Exception e) {
@@ -48,7 +47,7 @@ public class DataReader {
         }).collect(Collectors.toMap(strings -> {
             assert strings != null;
             return strings[0];
-        }, strings -> strings)).entrySet();
+        }, strings -> strings));
 
     }
 }

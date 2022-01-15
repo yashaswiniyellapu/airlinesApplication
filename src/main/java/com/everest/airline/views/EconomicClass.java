@@ -2,9 +2,21 @@ package com.everest.airline.views;
 
 import com.everest.airline.enums.FareType;
 import com.everest.airline.model.Flight;
+<<<<<<< HEAD
+||||||| da26066 (Had public constructor for flightClasses)
+import com.everest.airline.database.FlightClassDataTest;
+=======
+import com.everest.airline.database.FlightDataCollector;
+>>>>>>> parent of da26066 (Had public constructor for flightClasses)
 import com.everest.airline.price.TotalFareCalculation;
 
+<<<<<<< HEAD
 public class EconomicClass implements  FlightClassData {
+||||||| da26066 (Had public constructor for flightClasses)
+public class EconomicClass implements FlightClassDataTest, FlightClassData {
+=======
+public class EconomicClass implements FlightClassType, FlightDataCollector {
+>>>>>>> parent of da26066 (Had public constructor for flightClasses)
     private Flight flight;
     private TotalFareCalculation totalFare;
     private int capacity;
@@ -32,27 +44,47 @@ public class EconomicClass implements  FlightClassData {
 
     @Override
     public String getUpdatedData(Long flightNumber, int passengerCount) {
+<<<<<<< HEAD
 //        int seatsLeft = getSeatsLeft()-passengerCount;
 //        int availableSeatsLeft = flight.getAvailableSeats()-passengerCount;
 //        return flight.toString(seatsLeft,flight.getFlightClass().getEconomicClassData().getSeatsLeft(),flight.getFlightClass().getEconomicClassData().getSeatsLeft(),availableSeatsLeft);
         return null;
+||||||| da26066 (Had public constructor for flightClasses)
+        int seatsLeft = getSeatsLeft()-passengerCount;
+        int availableSeatsLeft = flight.getAvailableSeats()-passengerCount;
+        return flight.toString(seatsLeft,flight.getFlightClass().getEconomicClassData().getSeatsLeft(),flight.getFlightClass().getEconomicClassData().getSeatsLeft(),availableSeatsLeft);
+=======
+        String line = null;
+        if (flightNumber == flight.getNumber()) {
+            int availableSeats = flight.getAvailableSeats() - passengerCount;
+            int seatsLeft = getSeatsLeft() - passengerCount;
+            line = flight.getNumber() + "," + flight.getSource() + "," + flight.getDestination() +
+                    "," + flight.getDepartureDate() + "," + flight.getDepartureTime() + "," +
+                    flight.getArrivalTime() + "," + availableSeats +
+                    "," + seatsLeft + "," + flight.getSecondClassSeats() + "," + flight.getFirstClassSeats() + "," +
+                    getCapacity() + "," + flight.getSecondClassCapacity() + "," + flight.getFirstClassCapacity();
+        }
+        return line;
+
+>>>>>>> parent of da26066 (Had public constructor for flightClasses)
     }
 
     @Override
     public boolean validateData(int passengerCount) {
-        return passengerCount <= getSeatsLeft();
+        if (passengerCount <= getSeatsLeft()) {
+            return true;
+        }
+        return false;
     }
 
     @Override
     public int getSeatsLeft() {
-        System.out.println("getSeatsLeft "+ seatsLeft);
         return seatsLeft;
     }
 
     @Override
     public void setSeatsLeft(int seatsLeft) {
         this.seatsLeft=seatsLeft;
-        System.out.println("seatsLeft "+ seatsLeft+ " this.seatsLeft "+ this.seatsLeft);
 
     }
 

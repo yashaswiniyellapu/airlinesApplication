@@ -1,9 +1,9 @@
 package com.everest.airline.services;
 
-import com.everest.airline.database.DataReader;
+import com.everest.airline.database.DataRetriever;
 import com.everest.airline.views.FlightClassFilter;
 import com.everest.airline.model.Flight;
-import com.everest.airline.views.FlightClassData;
+import com.everest.airline.views.FlightClassType;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedWriter;
@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public class BookService {
     FlightClassFilter filter;
-    FlightClassData classType;
+    FlightClassType test;
 
     public void updateData(Long flightNumber, String classType, String passengerCount, List<Flight> flightData) throws IOException {
         for(Flight flight:flightData)
@@ -26,13 +26,13 @@ public class BookService {
             File[] listOfFiles = directory.listFiles();
             if (listOfFiles != null) {
                 for (File file : listOfFiles) {
-                    DataReader data = new DataReader(file);
+                    DataRetriever data = new DataRetriever(file);
                     if(file.getName().equalsIgnoreCase(flightNumber + ".txt"))
                     {
                         line = data.readFile();
                         filter= new FlightClassFilter(classType);
-                        this.classType = filter.filterClass(flight);
-                            updatedLine = this.classType.getUpdatedData(flightNumber,Integer.parseInt(passengerCount));
+                        test= filter.filterClass(flight);
+                            updatedLine = test.getUpdatedData(flightNumber,Integer.parseInt(passengerCount));
                             if(updatedLine!=null)
                             {
                                 BufferedWriter writer = new BufferedWriter(new FileWriter(file));
