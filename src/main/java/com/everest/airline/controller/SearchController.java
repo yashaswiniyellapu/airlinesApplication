@@ -1,7 +1,7 @@
 package com.everest.airline.controller;
 
 import com.everest.airline.model.Flight;
-import com.everest.airline.services.BookService;
+//import com.everest.airline.services.BookService;
 import com.everest.airline.services.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ public class SearchController {
     @Autowired
     public SearchService searchService;
     @Autowired
-    public BookService updateBooking;
+    //public BookService updateBooking;
 
     @RequestMapping(value = "/")
     public String home() {
@@ -31,7 +31,9 @@ public class SearchController {
     public String search(String from, String to, String date, String passengersCount, String classType, Model model) {
 
         try {
-            flightData = searchService.flight(from, to, date, passengersCount, classType);
+            flightData = searchService.flightObjectTest(from, to, date, passengersCount, classType);
+            searchService.showFlightObject(flightData.get(0));
+            System.out.println(flightData);
             if (flightData.size() == 0) {
                 return "error";
             }
@@ -40,6 +42,7 @@ public class SearchController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        flightData.stream().map();
         model.addAttribute("flights", flightData);
         model.addAttribute("classType", classType);
         model.addAttribute("classFare", searchService.getFare());
@@ -52,11 +55,11 @@ public class SearchController {
 
     @RequestMapping(value = "/book/{number}/{classType}/{passengerCount}")
     public String book(@PathVariable("number") Long number, @PathVariable("classType") String classType, @PathVariable("passengerCount") String passengerCount) {
-        try {
-            updateBooking.updateData(number, classType, passengerCount, flightData);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            updateBooking.updateData(number, classType, passengerCount, flightData);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return "book";
 
     }

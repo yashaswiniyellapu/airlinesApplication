@@ -31,9 +31,9 @@
         <td th:text="${flight.departureDate}"></td>
         <td th:text="${flight.departureTime}"></td>
         <td th:text="${flight.arrivalTime}"></td>
-        <td th:if="${classType} == 'economic'" th:text="${flight.economicClassSeats}"></td>
-        <td th:if="${classType} == 'first'" th:text="${flight.firstClassSeats}"></td>
-        <td th:if="${classType} == 'second'" th:text="${flight.secondClassSeats}"></td>
+        <td th:if="${classType} == 'economic'" th:text="${flight.getEconomicClass().getSeatsLeft()}"></td>
+        <td th:if="${classType} == 'first'" th:text="${flight.getEconomicClass().getSeatsLeft()}"></td>
+        <td th:if="${classType} == 'second'" th:text="${flight.getEconomicClass().getSeatsLeft()}"></td>
         <td th:text="${classType}"></td>
         <td th:text="${passengerCount}"></td>
         <td th:text="${classFare}"></td>

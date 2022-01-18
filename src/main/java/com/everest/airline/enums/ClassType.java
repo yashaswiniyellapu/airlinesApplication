@@ -1,11 +1,11 @@
 package com.everest.airline.enums;
 
-public enum FareType {
+public enum ClassType {
     ECONOMIC(170), FIRST(200), SECOND(350);
 
     private double fare;
 
-    FareType(double fare) {
+    ClassType(double fare) {
         this.fare = fare;
     }
 
