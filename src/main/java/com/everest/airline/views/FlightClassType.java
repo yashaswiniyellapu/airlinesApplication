@@ -7,16 +7,16 @@ public interface FlightClassType {
 
     double getFare();
 
-    double getTotalFare();
+    double getClassFare();
 
-//    String getUpdatedData(Long flightNumber, int passengerCount);
+ int getUpdatedData();
 
     boolean validateData(int passengerCount);
 
         int getSeatsLeft();
 
         int getCapacity();
-        void setDepartureDate(LocalDate date);
+        double getTotalFare();
 
 
 

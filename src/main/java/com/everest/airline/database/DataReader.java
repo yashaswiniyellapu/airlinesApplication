@@ -13,7 +13,7 @@ public class DataReader {
     public static Set<Map.Entry<String, String[]>> getFilesData() {
         return Objects.requireNonNull(DirectoryReader.getListOfFiles()).stream().map(file -> {
             try {
-                return new BufferedReader(new FileReader(String.valueOf(file))).readLine().split(",");
+                return new BufferedReader(new FileReader(String.valueOf(file.getValue()))).readLine().split(",");
             } catch (Exception e) {
                 e.printStackTrace();
             }

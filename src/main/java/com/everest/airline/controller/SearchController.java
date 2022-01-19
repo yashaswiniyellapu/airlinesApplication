@@ -1,7 +1,9 @@
 package com.everest.airline.controller;
 
+import com.everest.airline.enums.ClassType;
 import com.everest.airline.model.Flight;
 //import com.everest.airline.services.BookService;
+import com.everest.airline.services.BookService;
 import com.everest.airline.services.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +22,7 @@ public class SearchController {
     @Autowired
     public SearchService searchService;
     @Autowired
-    //public BookService updateBooking;
+    public BookService book;
 
     @RequestMapping(value = "/")
     public String home() {
@@ -28,13 +30,11 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/search")
-    public String search(String from, String to, String date, String passengersCount, String classType, Model model) {
+    public String search(String from, String to, String date, int passengersCount, String classType, Model model) {
 
         try {
             flightData = searchService.flightObjectTest(from, to, date, passengersCount, classType);
-            searchService.showFlightObject(flightData.get(0));
-            System.out.println(flightData);
-            if (flightData.size() == 0) {
+            if (flightData.isEmpty()) {
                 return "error";
             }
         } catch (IllegalStateException e) {
@@ -42,12 +42,10 @@ public class SearchController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        flightData.stream().map();
+
         model.addAttribute("flights", flightData);
         model.addAttribute("classType", classType);
-        model.addAttribute("classFare", searchService.getFare());
         model.addAttribute("passengerCount", passengersCount);
-        model.addAttribute("totalFare", searchService.getTotalFare());
 
 
         return "search";
@@ -55,11 +53,11 @@ public class SearchController {
 
     @RequestMapping(value = "/book/{number}/{classType}/{passengerCount}")
     public String book(@PathVariable("number") Long number, @PathVariable("classType") String classType, @PathVariable("passengerCount") String passengerCount) {
-//        try {
-//            updateBooking.updateData(number, classType, passengerCount, flightData);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            book.updateData(number, classType, Integer.parseInt(passengerCount), flightData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return "book";
 
     }

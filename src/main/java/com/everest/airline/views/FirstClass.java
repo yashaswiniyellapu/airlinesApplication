@@ -11,24 +11,25 @@ public class FirstClass implements FlightClassType{
     private int capacity;
     private int availableSeats;
     private LocalDate departureDate;
+    private int passengerCount;
 
 
-
-
-    public FirstClass(int capacity, int availableSeats) {
+    public FirstClass(int capacity, int availableSeats, LocalDate departureDate,int passengerCount) {
 
         this.capacity = capacity;
         this.availableSeats = availableSeats;
+        this.departureDate = departureDate;
+        this.passengerCount = passengerCount;
     }
 
 
     @Override
     public double getFare() {
-        return ClassType.FIRST.getFare();
+        return ClassType.first.getFare();
     }
 
     @Override
-    public double getTotalFare() {
+    public double getClassFare() {
         double price;
         totalFare = new TotalFareCalculation(capacity, availableSeats, getFare(), departureDate);
         price = totalFare.getTotalClassFare();
@@ -58,8 +59,11 @@ public class FirstClass implements FlightClassType{
     }
 
     @Override
-    public void setDepartureDate(LocalDate date) {
-        departureDate = date;
+    public double getTotalFare() {
+        return  getClassFare()*passengerCount;
+    }
+    public int getUpdatedData() {
+        return availableSeats-passengerCount;
     }
 
 

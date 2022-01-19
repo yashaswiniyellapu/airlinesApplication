@@ -76,20 +76,16 @@ public class SearchService {
         return totalClassFare;
     }
 
-    public List<Flight> flightObjectTest(String source, String destination, String date, String passengersCount, String classType)
+    public List<Flight> flightObjectTest(String source, String destination, String date,int passengersCount, String classType)
     {
     return DataReader.getFilesData().stream().map(Map.Entry::getValue).filter(strings-> strings[1].equalsIgnoreCase(source)&&
             strings[2].equalsIgnoreCase(destination)&& strings[3].equalsIgnoreCase(date)).map(data->
           new Flight(Long.parseLong(data[0]),data[1],data[2],LocalDate.parse(data[3]),LocalTime.parse(data[4]),LocalTime.parse(data[5]),
-                    new EconomicClass(Integer.parseInt(data[10]),Integer.parseInt(data[7])),
-                    new SecondClass(Integer.parseInt(data[11]),Integer.parseInt(data[8])),
-                            new FirstClass(Integer.parseInt(data[12]),Integer.parseInt(data[9])))).collect(Collectors.toList());
+                    new EconomicClass(Integer.parseInt(data[10]),Integer.parseInt(data[7]),LocalDate.parse(data[3]),passengersCount),
+                    new SecondClass(Integer.parseInt(data[11]),Integer.parseInt(data[8]),LocalDate.parse(data[3]),passengersCount),
+                            new FirstClass(Integer.parseInt(data[12]),Integer.parseInt(data[9]),LocalDate.parse(data[3]),passengersCount))).collect(Collectors.toList());
     }
-    public void showFlightObject(Flight flight)
-    {
-        System.out.println("id "+ flight.getNumber()+" source "+ flight.getSource()+" destination "+ flight.getDestination()+
-                "economicCapacity "+flight.getEconomicClass().getCapacity()+"econmicSeats "+ flight.getEconomicClass().getSeatsLeft());
-    }
+
 }
 
   //  public Flight(long number, String source, String destination, LocalDate departureDate,LocalTime departureTime,LocalTime arrivalTime, FlightClassType economicClass, FlightClassType secondClass, FlightClassType firstClass) {

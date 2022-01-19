@@ -36,8 +36,15 @@
         <td th:if="${classType} == 'second'" th:text="${flight.getEconomicClass().getSeatsLeft()}"></td>
         <td th:text="${classType}"></td>
         <td th:text="${passengerCount}"></td>
-        <td th:text="${classFare}"></td>
-        <td th:text="${totalFare}"></td>
+
+        <td th:if="${classType} == 'economic'" th:text="${flight.getEconomicClass().getClassFare()}"></td>
+        <td th:if="${classType} == 'first'" th:text="${flight.getFirstClass().getClassFare()}"></td>
+        <td th:if="${classType} == 'second'" th:text="${flight.getSecondClass().getClassFare()}"></td>
+
+        <td th:if="${classType} == 'economic'" th:text="${flight.getEconomicClass().getTotalFare()}"></td>
+        <td th:if="${classType} == 'first'" th:text="${flight.getFirstClass().getTotalFare()}"></td>
+        <td th:if="${classType} == 'second'" th:text="${flight.getSecondClass().getTotalFare()}"></td>
+
 
         <form action="#" th:action="@{'/book/'+${flight.number}+'/'+${classType}+'/'+${passengerCount}}" method="post">
             <td><input type="submit" th:value="book" id="book" name="book">

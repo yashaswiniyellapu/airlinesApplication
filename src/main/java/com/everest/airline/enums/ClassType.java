@@ -1,7 +1,7 @@
 package com.everest.airline.enums;
 
 public enum ClassType {
-    ECONOMIC(170), FIRST(200), SECOND(350);
+    economic(170), first(200), second(350);
 
     private double fare;
 

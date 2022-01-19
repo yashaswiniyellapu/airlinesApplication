@@ -3,6 +3,7 @@ package com.everest.airline.model;
 
 
 import com.everest.airline.enums.ClassType;
+import com.everest.airline.validator.FlightClasses;
 import com.everest.airline.views.FlightClassType;
 
 import java.time.LocalDate;
@@ -19,9 +20,9 @@ public class Flight {
     private LocalTime departureTime;
     private LocalTime arrivalTime;
     private int availableSeats;
-    private FlightClassType economicClass;
-    private FlightClassType firstClass;
-    private FlightClassType secondClass;
+    private static FlightClassType economicClass;
+    private static FlightClassType firstClass;
+    private static FlightClassType secondClass;
 
     public Flight(long number, String source, String destination, LocalDate departureDate,LocalTime departureTime,LocalTime arrivalTime, FlightClassType economicClass, FlightClassType secondClass, FlightClassType firstClass) {
         this.number = number;
@@ -33,6 +34,8 @@ public class Flight {
         this.economicClass = economicClass;
         this.secondClass = secondClass;
         this.firstClass = firstClass;
+        setFlightClasses();
+        flightClassesData();
     }
 
     public long getNumber() {
@@ -60,7 +63,7 @@ public class Flight {
     }
 
     public int getAvailableSeats() {
-        return availableSeats;
+        return economicClass.getSeatsLeft()+firstClass.getSeatsLeft()+secondClass.getSeatsLeft();
     }
 
     public FlightClassType getEconomicClass() {
@@ -79,24 +82,50 @@ public class Flight {
         this.secondClass = secondClass;
     }
 
-    //
-//    public String toString(int economicClassSeats, int secondClassSeats, int firstClassSeats, int availableSeats) {
-//        return getNumber() + "," + getSource() + "," + getDestination() +
-//                "," + getDepartureDate() + "," + getDepartureTime() + "," +
-//                getArrivalTime() + "," + availableSeats +
-//                "," + economicClassSeats + "," + secondClassSeats + "," + firstClassSeats + "," +
-//                flightClass.getEconomicClassData().getCapacity() + "," +
-//                flightClass.getSecondClassData().getCapacity() + "," + flightClass.getFirstClassData().getCapacity();
 
-//}
-    public  Set<Map.Entry<ClassType, FlightClassType>> FlightClassID()
+    public  String toString(int passengerCount, String classType) {
+        int economicClassSeats=0;
+        int secondClassSeats=0;
+        int firstClassSeats=0;
+        switch (classType) {
+            case "economic":
+                economicClassSeats = economicClass.getSeatsLeft() - passengerCount;
+                secondClassSeats = secondClass.getSeatsLeft();
+                firstClassSeats = firstClass.getSeatsLeft();
+                break;
+            case "first":
+                economicClassSeats = economicClass.getSeatsLeft();
+                secondClassSeats = secondClass.getSeatsLeft() - passengerCount;
+                firstClassSeats = firstClass.getSeatsLeft();
+                break;
+            case "second":
+
+                economicClassSeats = economicClass.getSeatsLeft();
+                secondClassSeats = secondClass.getSeatsLeft();
+                firstClassSeats = firstClass.getSeatsLeft() - passengerCount;
+                break;
+            default:
+                System.out.println("enter correct type");
+        }
+        return getNumber() + "," + getSource() + "," + getDestination() +
+                "," + getDepartureDate() + "," + getDepartureTime() + "," +
+                getArrivalTime() + "," + (getAvailableSeats()-passengerCount) +
+                "," + economicClassSeats + "," + secondClassSeats + "," + firstClassSeats + "," +
+                economicClass.getCapacity() + "," +
+                secondClass.getCapacity() + "," + firstClass.getCapacity();
+
+}
+    public void setFlightClasses()
     {
-        HashMap<ClassType,FlightClassType> classes = new HashMap<>();
-        classes.put(ClassType.ECONOMIC,economicClass);
-        classes.put(ClassType.SECOND,secondClass);
-        classes.put(ClassType.FIRST,firstClass);
-        return classes.entrySet();
+         new FlightClasses(economicClass,secondClass,firstClass);
     }
 
-
+    public static Set<Map.Entry<ClassType, FlightClassType>> flightClassesData()
+    {
+        HashMap<ClassType,FlightClassType> classes = new HashMap<>();
+        classes.put(ClassType.economic,economicClass);
+        classes.put(ClassType.second,secondClass);
+        classes.put(ClassType.first,firstClass);
+        return classes.entrySet();
+    }
 }

@@ -11,22 +11,31 @@ public class EconomicClass implements FlightClassType {
     private int capacity;
     private int availableSeats;
     private LocalDate departureDate;
-    public EconomicClass(int capacity, int availableSeats){
+    private int passengerCount;
+
+    public EconomicClass(int capacity, int availableSeats,LocalDate departureDate, int passengerCount){
         this.capacity = capacity;
         this.availableSeats = availableSeats;
+        this.departureDate = departureDate;
+        this.passengerCount = passengerCount;
     }
 
     @Override
     public double getFare() {
-        return ClassType.ECONOMIC.getFare();
+        return ClassType.economic.getFare();
     }
 
     @Override
-    public double getTotalFare() {
+    public double getClassFare() {
         double price;
         totalFare = new TotalFareCalculation(capacity, availableSeats, getFare(),departureDate);
         price = totalFare.getTotalClassFare();
         return price;
+    }
+
+    @Override
+    public int getUpdatedData() {
+        return availableSeats-passengerCount;
     }
 
 //    @Override
@@ -51,8 +60,7 @@ public class EconomicClass implements FlightClassType {
     }
 
     @Override
-    public void setDepartureDate(LocalDate date) {
-        departureDate=date;
+    public double getTotalFare() {
+        return  getClassFare()*passengerCount;
     }
-
 }

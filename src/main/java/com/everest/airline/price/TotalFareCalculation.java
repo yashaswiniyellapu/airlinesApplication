@@ -14,6 +14,8 @@ public class TotalFareCalculation {
         this.capacity = capacity;
         this.fare = fare;
         this.departureDate = departureDate;
+        System.out.println("capacity "+capacity);
+        _byDays();
     }
 
     public double _byAvailableSeats() {
