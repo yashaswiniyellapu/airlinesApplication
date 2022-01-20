@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -43,11 +42,7 @@ public class SearchController {
 
     @RequestMapping(value = "/book/{number}/{classType}/{passengerCount}")
     public String book(@PathVariable("number") Long number, @PathVariable("classType") String classType, @PathVariable("passengerCount") String passengerCount) {
-        try {
-            book.updateData(number, classType, Integer.parseInt(passengerCount), flightData);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        book.updateData(number, classType, Integer.parseInt(passengerCount), flightData);
         return "book";
 
     }

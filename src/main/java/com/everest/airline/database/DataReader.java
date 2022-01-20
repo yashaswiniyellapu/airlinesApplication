@@ -24,7 +24,7 @@ public class DataReader {
         }, strings -> strings)).entrySet();
 
     }
-    public String[] singleFileData(String flightNumber)
+    public static String[] singleFileData(String flightNumber)
     {
         return  multipleFilesData().parallelStream().filter(fileData-> fileData.getKey().equalsIgnoreCase(flightNumber))
                 .map(Map.Entry::getValue).findFirst().orElse(null);

@@ -1,6 +1,5 @@
 package com.everest.airline.views;
 
-
 public interface FlightClassType {
 
 

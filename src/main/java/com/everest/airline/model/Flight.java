@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
 
+
 public class Flight {
     private long number;
     private String source;
@@ -20,7 +21,10 @@ public class Flight {
     private static FlightClassType firstClass;
     private static FlightClassType secondClass;
 
-    public Flight(long number, String source, String destination, LocalDate departureDate,LocalTime departureTime,LocalTime arrivalTime, FlightClassType economicClass, FlightClassType secondClass, FlightClassType firstClass) {
+    public Flight() {
+    }
+
+    public Flight(long number, String source, String destination, LocalDate departureDate, LocalTime departureTime, LocalTime arrivalTime, FlightClassType economicClass, FlightClassType secondClass, FlightClassType firstClass) {
         this.number = number;
         this.source = source;
         this.destination = destination;
@@ -57,7 +61,7 @@ public class Flight {
     }
 
     public int getAvailableSeats() {
-        return economicClass.getSeatsLeft()+firstClass.getSeatsLeft()+secondClass.getSeatsLeft();
+        return economicClass.getSeatsLeft() + firstClass.getSeatsLeft() + secondClass.getSeatsLeft();
     }
 
     public FlightClassType getEconomicClass() {
@@ -73,10 +77,10 @@ public class Flight {
     }
 
 
-    public  String toString(int passengerCount, String classType) {
-        int economicClassSeats=0;
-        int secondClassSeats=0;
-        int firstClassSeats=0;
+    public String toString(int passengerCount, String classType) {
+        int economicClassSeats = 0;
+        int secondClassSeats = 0;
+        int firstClassSeats = 0;
         switch (classType) {
             case "economic":
                 economicClassSeats = economicClass.getSeatsLeft() - passengerCount;
@@ -95,23 +99,21 @@ public class Flight {
                 firstClassSeats = firstClass.getSeatsLeft() - passengerCount;
                 break;
             default:
-                System.out.println("enter correct type");
+                System.err.println("enter correct type");
         }
-        return getNumber() + "," + getSource() + "," + getDestination() +
-                "," + getDepartureDate() + "," + getDepartureTime() + "," +
-                getArrivalTime() + "," + (getAvailableSeats()-passengerCount) +
-                "," + economicClassSeats + "," + secondClassSeats + "," + firstClassSeats + "," +
-                economicClass.getCapacity() + "," +
-                secondClass.getCapacity() + "," + firstClass.getCapacity();
+        return getNumber() + "," + getSource() + "," + getDestination() + "," + getDepartureDate() + ","
+                + getDepartureTime() + "," + getArrivalTime() + "," + (getAvailableSeats() - passengerCount)
+                + "," + economicClassSeats + "," + secondClassSeats + "," + firstClassSeats + ","
+                + economicClass.getCapacity() + "," + secondClass.getCapacity() + "," + firstClass.getCapacity();
 
-}
+    }
 
-    public FlightClassType flightClassesData(String classType)
-    {
-        HashMap<ClassType,FlightClassType> classes = new HashMap<>();
-        classes.put(ClassType.economic,economicClass);
-        classes.put(ClassType.second,secondClass);
-        classes.put(ClassType.first,firstClass);
+    public FlightClassType flightClassesData(String classType) {
+        HashMap<ClassType, FlightClassType> classes = new HashMap<>();
+        classes.put(ClassType.economic, economicClass);
+        classes.put(ClassType.second, secondClass);
+        classes.put(ClassType.first, firstClass);
+
         return classes.get(ClassType.valueOf(classType));
     }
 }

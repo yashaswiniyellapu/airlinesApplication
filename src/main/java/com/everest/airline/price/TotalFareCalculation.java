@@ -24,9 +24,11 @@ public class TotalFareCalculation {
         double price;
         if (flightClass.getSeatsLeft() >= flightClass.getCapacity() * 0.7) {
             price = fare;
-        } else if (flightClass.getSeatsLeft() > flightClass.getCapacity() * 0.5 && flightClass.getSeatsLeft() <= flightClass.getCapacity() * 0.7) {
+        } else if (flightClass.getSeatsLeft() > flightClass.getCapacity() * 0.5
+                && flightClass.getSeatsLeft() <= flightClass.getCapacity() * 0.7) {
             price = fare + (fare * 0.2);
-        } else if (flightClass.getSeatsLeft() > flightClass.getCapacity() * 0.25 && flightClass.getSeatsLeft() <= flightClass.getCapacity() * 0.5) {
+        } else if (flightClass.getSeatsLeft() > flightClass.getCapacity() * 0.25
+                && flightClass.getSeatsLeft() <= flightClass.getCapacity() * 0.5) {
             price = fare + (fare * 0.35);
         } else {
             price = fare + (fare * 0.50);
