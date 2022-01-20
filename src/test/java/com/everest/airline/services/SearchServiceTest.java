@@ -1,20 +1,34 @@
 package com.everest.airline.services;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.everest.airline.database.DataReader;
+import com.everest.airline.model.Flight;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
-//class SearchServiceTest {
-//    List<Flight> list = Data.getData();
-//
-//    SearchServiceTest() throws IOException {
-//    }
-//
-//    @Test
-//    void sortByPlace() throws IOException {
-//
-//        SearchService search = new SearchService();
-//        List<Flight> result = search.flight("Hyderabad", "Bangalore", "2021-12-05");
-//        assertEquals(List.of(list.get(0)), result);
-//
-//
-//    }
-//}
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class SearchServiceTest {
+    @Autowired
+    SearchService search;
+    Set<Map.Entry<String, String[]>> list = DataReader.multipleFilesData();
+
+    SearchServiceTest() throws IOException {
+    }
+
+    @Test
+    void sortByUserData()  {
+
+      boolean isPresent= list.parallelStream().map(Map.Entry::getValue).anyMatch(fileData-> fileData[1].equalsIgnoreCase("Hyderabad")
+       &&fileData[2].equalsIgnoreCase("Bangalore")&& fileData[3].equalsIgnoreCase("2021-12-30"));
+        Assertions.assertTrue(isPresent);
+
+
+    }
+}
