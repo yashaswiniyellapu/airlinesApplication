@@ -1,27 +1,20 @@
 package com.everest.airline.views;
 
 
-import java.time.LocalDate;
-
 public interface FlightClassType {
 
-    double getFare();
 
     double getClassFare();
 
- int getUpdatedData();
+    int getSeatsLeft();
 
-    boolean validateData(int passengerCount);
+    int getCapacity();
 
-        int getSeatsLeft();
+    double getTotalFare();
 
-        int getCapacity();
-        double getTotalFare();
+    void setClassFare(double fare);
 
-
-
-
-
+    void setTotalFare(double fare);
 
 
 }

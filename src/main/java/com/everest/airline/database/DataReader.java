@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 public class DataReader {
     private DataReader(){}
 
-    public static Set<Map.Entry<String, String[]>> getFilesData() {
-        return Objects.requireNonNull(DirectoryReader.getListOfFiles()).stream().map(file -> {
+    public static Set<Map.Entry<String, String[]>> multipleFilesData() {
+        return Objects.requireNonNull(DirectoryReader.ListOfFiles()).stream().map(file -> {
             try {
                 return new BufferedReader(new FileReader(String.valueOf(file.getValue()))).readLine().split(",");
             } catch (Exception e) {
@@ -23,5 +23,10 @@ public class DataReader {
             return strings[0];
         }, strings -> strings)).entrySet();
 
+    }
+    public String[] singleFileData(String flightNumber)
+    {
+        return  multipleFilesData().parallelStream().filter(fileData-> fileData.getKey().equalsIgnoreCase(flightNumber))
+                .map(Map.Entry::getValue).findFirst().orElse(null);
     }
 }

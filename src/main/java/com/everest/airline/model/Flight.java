@@ -3,14 +3,11 @@ package com.everest.airline.model;
 
 
 import com.everest.airline.enums.ClassType;
-import com.everest.airline.validator.FlightClasses;
 import com.everest.airline.views.FlightClassType;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 public class Flight {
     private long number;
@@ -19,7 +16,6 @@ public class Flight {
     private LocalDate departureDate;
     private LocalTime departureTime;
     private LocalTime arrivalTime;
-    private int availableSeats;
     private static FlightClassType economicClass;
     private static FlightClassType firstClass;
     private static FlightClassType secondClass;
@@ -34,8 +30,6 @@ public class Flight {
         this.economicClass = economicClass;
         this.secondClass = secondClass;
         this.firstClass = firstClass;
-        setFlightClasses();
-        flightClassesData();
     }
 
     public long getNumber() {
@@ -78,10 +72,6 @@ public class Flight {
         return secondClass;
     }
 
-    public void setSecondClass(FlightClassType secondClass) {
-        this.secondClass = secondClass;
-    }
-
 
     public  String toString(int passengerCount, String classType) {
         int economicClassSeats=0;
@@ -115,17 +105,13 @@ public class Flight {
                 secondClass.getCapacity() + "," + firstClass.getCapacity();
 
 }
-    public void setFlightClasses()
-    {
-         new FlightClasses(economicClass,secondClass,firstClass);
-    }
 
-    public static Set<Map.Entry<ClassType, FlightClassType>> flightClassesData()
+    public FlightClassType flightClassesData(String classType)
     {
         HashMap<ClassType,FlightClassType> classes = new HashMap<>();
         classes.put(ClassType.economic,economicClass);
         classes.put(ClassType.second,secondClass);
         classes.put(ClassType.first,firstClass);
-        return classes.entrySet();
+        return classes.get(ClassType.valueOf(classType));
     }
 }

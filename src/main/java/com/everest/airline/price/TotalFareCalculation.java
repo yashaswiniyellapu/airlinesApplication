@@ -1,5 +1,8 @@
 package com.everest.airline.price;
 
+import com.everest.airline.enums.ClassType;
+import com.everest.airline.views.FlightClassType;
+
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -8,47 +11,41 @@ public class TotalFareCalculation {
     private int capacity;
     private double fare;
     private LocalDate departureDate;
+    private FlightClassType flightClass;
 
-    public TotalFareCalculation(int capacity, int availableSeats, double fare, LocalDate departureDate) {
-        this.availableSeats = availableSeats;
-        this.capacity = capacity;
-        this.fare = fare;
+    public TotalFareCalculation(FlightClassType flightClass, LocalDate departureDate, String classType) {
+        this.flightClass = flightClass;
         this.departureDate = departureDate;
-        System.out.println("capacity "+capacity);
-        _byDays();
+        fare = ClassType.valueOf(classType).getFare();
+        byDays();
     }
 
-    public double _byAvailableSeats() {
+    public double byAvailableSeats() {
         double price;
-        if (availableSeats >= capacity*0.7) {
+        if (flightClass.getSeatsLeft() >= flightClass.getCapacity() * 0.7) {
             price = fare;
-        } else if (availableSeats > capacity*0.5 && availableSeats <= capacity*0.7) {
+        } else if (flightClass.getSeatsLeft() > flightClass.getCapacity() * 0.5 && flightClass.getSeatsLeft() <= flightClass.getCapacity() * 0.7) {
             price = fare + (fare * 0.2);
-        } else if (availableSeats > capacity*0.25 && availableSeats <= capacity*0.5) {
+        } else if (flightClass.getSeatsLeft() > flightClass.getCapacity() * 0.25 && flightClass.getSeatsLeft() <= flightClass.getCapacity() * 0.5) {
             price = fare + (fare * 0.35);
         } else {
             price = fare + (fare * 0.50);
         }
-
         return price;
     }
 
-    public double _byDays() {
+    public double byDays() {
         double price = 0;
         int totalNumberOfDays;
-        double priceByAvailableSeats=_byAvailableSeats();
+        double priceByAvailableSeats = byAvailableSeats();
         LocalDate currentDate = LocalDate.now();
         Period period = Period.between(departureDate, currentDate);
         int numberOfDays = period.getDays();
-        if(numberOfDays<0)
-        {
-            System.out.println(numberOfDays+" numberOfDays");
-            totalNumberOfDays = (int) Math.copySign(numberOfDays,1);
+        if (numberOfDays < 0) {
+            totalNumberOfDays = (int) Math.copySign(numberOfDays, 1);
+        } else {
+            totalNumberOfDays = numberOfDays;
         }
-        else {
-            totalNumberOfDays=numberOfDays;
-        }
-        System.out.println(totalNumberOfDays);
         if (totalNumberOfDays > 0 && totalNumberOfDays <= 3) {
             int day = 3 - totalNumberOfDays + 1;
             price = priceByAvailableSeats + (priceByAvailableSeats * day * 0.02);
@@ -59,9 +56,5 @@ public class TotalFareCalculation {
             price = priceByAvailableSeats;
         }
         return price;
-    }
-
-    public double getTotalClassFare() {
-        return _byDays();
     }
 }

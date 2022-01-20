@@ -1,8 +1,7 @@
 package com.everest.airline.controller;
 
-import com.everest.airline.enums.ClassType;
+import com.everest.airline.exceptions.FlightNotFoundException;
 import com.everest.airline.model.Flight;
-//import com.everest.airline.services.BookService;
 import com.everest.airline.services.BookService;
 import com.everest.airline.services.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,23 +30,14 @@ public class SearchController {
 
     @RequestMapping(value = "/search")
     public String search(String from, String to, String date, int passengersCount, String classType, Model model) {
-
-        try {
-            flightData = searchService.flightObjectTest(from, to, date, passengersCount, classType);
-            if (flightData.isEmpty()) {
-                return "error";
-            }
-        } catch (IllegalStateException e) {
-            return "flightsUnavailable";
-        } catch (Exception e) {
-            e.printStackTrace();
+        flightData = searchService.flightObjectTest(from, to, date, passengersCount, classType);
+        if (flightData.isEmpty()) {
+            throw new FlightNotFoundException();
         }
-
         model.addAttribute("flights", flightData);
         model.addAttribute("classType", classType);
         model.addAttribute("passengerCount", passengersCount);
-
-
+        model.addAttribute("classFare", passengersCount);
         return "search";
     }
 
