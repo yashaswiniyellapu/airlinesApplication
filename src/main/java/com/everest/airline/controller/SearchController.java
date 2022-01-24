@@ -29,7 +29,7 @@ public class SearchController {
 
     @RequestMapping(value = "/search")
     public String search(String from, String to, String date, int passengersCount, String classType, Model model) {
-        flightData = searchService.flightObjectTest(from, to, date, passengersCount, classType);
+       // flightData = searchService.flightObjectTest(from, to, date, passengersCount, classType);
         if (flightData.isEmpty()) {
             throw new FlightNotFoundException();
         }

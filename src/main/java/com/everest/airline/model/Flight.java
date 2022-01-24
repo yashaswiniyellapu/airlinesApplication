@@ -5,8 +5,8 @@ package com.everest.airline.model;
 import com.everest.airline.enums.ClassType;
 import com.everest.airline.views.FlightClassType;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.HashMap;
 
 
@@ -14,9 +14,9 @@ public class Flight {
     private long number;
     private String source;
     private String destination;
-    private LocalDate departureDate;
-    private LocalTime departureTime;
-    private LocalTime arrivalTime;
+    private Date departureDate;
+    private Time departureTime;
+    private Time arrivalTime;
     private static FlightClassType economicClass;
     private static FlightClassType firstClass;
     private static FlightClassType secondClass;
@@ -24,17 +24,31 @@ public class Flight {
     public Flight() {
     }
 
-    public Flight(long number, String source, String destination, LocalDate departureDate, LocalTime departureTime, LocalTime arrivalTime, FlightClassType economicClass, FlightClassType secondClass, FlightClassType firstClass) {
-        this.number = number;
-        this.source = source;
-        this.destination = destination;
-        this.departureDate = departureDate;
-        this.departureTime = departureTime;
-        this.arrivalTime = arrivalTime;
-        this.economicClass = economicClass;
-        this.secondClass = secondClass;
-        this.firstClass = firstClass;
+    public static void setEconomicClass(FlightClassType economicClass) {
+        Flight.economicClass = economicClass;
     }
+
+    public static void setFirstClass(FlightClassType firstClass) {
+        Flight.firstClass = firstClass;
+    }
+
+    public static void setSecondClass(FlightClassType secondClass) {
+        Flight.secondClass = secondClass;
+    }
+
+//    public Flight(long number, String source, String destination, LocalDate departureDate, LocalTime departureTime, LocalTime arrivalTime, FlightClassType economicClass, FlightClassType secondClass, FlightClassType firstClass) {
+//        this.number = number;
+//        this.source = source;
+//        this.destination = destination;
+//        this.departureDate = departureDate;
+//        this.departureTime = departureTime;
+//        this.arrivalTime = arrivalTime;
+//        this.economicClass = economicClass;
+//        this.secondClass = secondClass;
+//        this.firstClass = firstClass;
+//    }
+
+
 
     public long getNumber() {
         return number;
@@ -48,15 +62,15 @@ public class Flight {
         return destination;
     }
 
-    public LocalDate getDepartureDate() {
+    public Date getDepartureDate() {
         return departureDate;
     }
 
-    public LocalTime getDepartureTime() {
+    public Time getDepartureTime() {
         return departureTime;
     }
 
-    public LocalTime getArrivalTime() {
+    public Time getArrivalTime() {
         return arrivalTime;
     }
 
@@ -115,5 +129,29 @@ public class Flight {
         classes.put(ClassType.first, firstClass);
 
         return classes.get(ClassType.valueOf(classType));
+    }
+
+    public void setNumber(long number) {
+        this.number = number;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public void setDepartureDate(Date departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public void setDepartureTime(Time departureTime) {
+        this.departureTime = departureTime;
+    }
+
+    public void setArrivalTime(Time arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 }

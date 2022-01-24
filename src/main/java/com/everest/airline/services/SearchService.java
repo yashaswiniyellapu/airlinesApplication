@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,18 +20,19 @@ import java.util.stream.Collectors;
 @Component
 public class SearchService {
 
-    public List<Flight> flightObjectTest
+    public void flightObjectTest
             (String source, String destination, String date, int passengersCount, String classType) {
-        return DataReader.multipleFilesData().stream().map(Map.Entry::getValue).
+        DataReader.multipleFilesData().stream().map(Map.Entry::getValue).
                 filter(strings -> strings[1].equalsIgnoreCase(source) && strings[2].equalsIgnoreCase(destination)
                         && strings[3].equalsIgnoreCase(date)).
                 map(data -> {
-                            Flight flight = new Flight(Long.parseLong(data[0]), data[1], data[2],
-                                    LocalDate.parse(data[3]),
-                                    LocalTime.parse(data[4]), LocalTime.parse(data[5]),
-                                    new EconomicClass(Integer.parseInt(data[10]), Integer.parseInt(data[7])),
-                                    new SecondClass(Integer.parseInt(data[11]), Integer.parseInt(data[8])),
-                                    new FirstClass(Integer.parseInt(data[12]), Integer.parseInt(data[9])));
+                            Flight flight = new Flight();
+                            flight.setNumber(Long.parseLong(data[0]));flight.setSource(data[1]);flight.setDestination(data[2]);
+//                            flight.setDepartureDate( Date.parse(data[3]));flight.setDepartureTime(LocalTime.parse(data[4]));
+//                            flight.setArrivalTime(LocalTime.parse(data[5]));
+//                            Flight.setEconomicClass(new EconomicClass(Integer.parseInt(data[10]),Integer.parseInt(data[7])));
+                            Flight.setSecondClass(new SecondClass(Integer.parseInt(data[11]),Integer.parseInt(data[8])));
+                            Flight.setFirstClass(new FirstClass(Integer.parseInt(data[12]),Integer.parseInt(data[9])));
                             double classFare = new TotalFareCalculation(flight.flightClassesData(classType),
                                     LocalDate.parse(data[3]), classType).byDays();
                             FlightClassType flightClass = flight.flightClassesData(classType);

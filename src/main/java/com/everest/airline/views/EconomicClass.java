@@ -3,8 +3,8 @@ package com.everest.airline.views;
 
 
 public class EconomicClass implements FlightClassType {
-    private int capacity;
-    private int availableSeats;
+    private final int capacity;
+    private final int availableSeats;
     private double classFare;
     private double totalFare;
 
