@@ -22,29 +22,7 @@ public class SearchService {
 
     public void flightObjectTest
             (String source, String destination, String date, int passengersCount, String classType) {
-        DataReader.multipleFilesData().stream().map(Map.Entry::getValue).
-                filter(strings -> strings[1].equalsIgnoreCase(source) && strings[2].equalsIgnoreCase(destination)
-                        && strings[3].equalsIgnoreCase(date)).
-                map(data -> {
-                            Flight flight = new Flight();
-                            flight.setNumber(Long.parseLong(data[0]));flight.setSource(data[1]);flight.setDestination(data[2]);
-//                            flight.setDepartureDate( Date.parse(data[3]));flight.setDepartureTime(LocalTime.parse(data[4]));
-//                            flight.setArrivalTime(LocalTime.parse(data[5]));
-//                            Flight.setEconomicClass(new EconomicClass(Integer.parseInt(data[10]),Integer.parseInt(data[7])));
-                            Flight.setSecondClass(new SecondClass(Integer.parseInt(data[11]),Integer.parseInt(data[8])));
-                            Flight.setFirstClass(new FirstClass(Integer.parseInt(data[12]),Integer.parseInt(data[9])));
-                            double classFare = new TotalFareCalculation(flight.flightClassesData(classType),
-                                    LocalDate.parse(data[3]), classType).byDays();
-                            FlightClassType flightClass = flight.flightClassesData(classType);
-                            flightClass.setClassFare(classFare);
-                            flightClass.setTotalFare(classFare * passengersCount);
-                            if (validateSeats(passengersCount, flightClass.getSeatsLeft())) {
-                                return flight;
-                            } else {
-                                throw new SeatsUnavailableException(classType, passengersCount);
-                            }
-                        }
-                ).collect(Collectors.toList());
+
 
     }
 
@@ -54,18 +32,18 @@ public class SearchService {
 
 }
 
-//  public Flight(long number, String source, String destination, LocalDate departureDate,LocalTime departureTime,LocalTime arrivalTime, FlightClassType economicClass, FlightClassType secondClass, FlightClassType firstClass) {
-//            long flightNumber = Long.parseLong(name[0]);
-//            String from = name[1];
-//            String to = name[2];
-//            LocalDate departureDate = LocalDate.parse(name[3]);
-//            LocalTime departureTime = LocalTime.parse(name[4]);
-//            LocalTime arrivalTime = LocalTime.parse(name[5]);
-//            int availableSeats = Integer.parseInt(name[6]);
-//            int economicClassSeats = Integer.parseInt(name[7]);
-//            int secondClassSeats = Integer.parseInt(name[8]);
-//            int firstClassSeats = Integer.parseInt(name[9]);
-//            int economicCapacity = Integer.parseInt(name[10]);
-//            int numberOfPassengers = Integer.parseInt(passengersCount);
-//            int firstClassCapacity = Integer.parseInt(name[11]);
-//            int secondClassCapacity = Integer.parseInt(name[12]);
+////  public Flight(long number, String source, String destination, LocalDate departureDate,LocalTime departureTime,LocalTime arrivalTime, FlightClassType economicClass, FlightClassType secondClass, FlightClassType firstClass) {
+////            long flightNumber = Long.parseLong(name[0]);
+////            String from = name[1];
+////            String to = name[2];
+////            LocalDate departureDate = LocalDate.parse(name[3]);
+////            LocalTime departureTime = LocalTime.parse(name[4]);
+////            LocalTime arrivalTime = LocalTime.parse(name[5]);
+////            int availableSeats = Integer.parseInt(name[6]);
+////            int economicClassSeats = Integer.parseInt(name[7]);
+////            int secondClassSeats = Integer.parseInt(name[8]);
+////            int firstClassSeats = Integer.parseInt(name[9]);
+////            int economicCapacity = Integer.parseInt(name[10]);
+////            int numberOfPassengers = Integer.parseInt(passengersCount);
+////            int firstClassCapacity = Integer.parseInt(name[11]);
+////            int secondClassCapacity = Integer.parseInt(name[12]);

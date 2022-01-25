@@ -17,9 +17,9 @@ public class Flight {
     private Date departureDate;
     private Time departureTime;
     private Time arrivalTime;
-    private static FlightClassType economicClass;
-    private static FlightClassType firstClass;
-    private static FlightClassType secondClass;
+    private static FlightClassType economicClass = new FlightClassType();
+    private static FlightClassType firstClass = new FlightClassType();
+    private static FlightClassType secondClass= new FlightClassType();
 
     public Flight() {
     }

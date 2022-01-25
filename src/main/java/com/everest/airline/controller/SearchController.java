@@ -3,7 +3,7 @@ package com.everest.airline.controller;
 import com.everest.airline.exceptions.FlightNotFoundException;
 import com.everest.airline.model.Flight;
 import com.everest.airline.services.BookService;
-import com.everest.airline.services.SearchService;
+//import com.everest.airline.services.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +17,8 @@ public class SearchController {
 
 
     private List<Flight> flightData;
-    @Autowired
-    public SearchService searchService;
+//    @Autowired
+//    public SearchService searchService;
     @Autowired
     public BookService book;
 
