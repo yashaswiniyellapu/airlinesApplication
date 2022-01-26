@@ -1,7 +1,6 @@
 package com.everest.airline.database;
 
 import com.everest.airline.model.Flight;
-
 import com.everest.airline.views.FlightClassType;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -19,13 +18,13 @@ public class FlightRowMapper implements RowMapper<Flight> {
         flight.setDepartureTime(rs.getTime("departure_time"));
         flight.setArrivalTime(rs.getTime("arrival_time"));
         FlightClassType ec = new FlightClassType();
-        ec.setCapacity(rs.getInt("economic_capacity"));
-               ec.setAvailableSeats( rs.getInt("economic_seats_available"));
-    FlightClassType sc = new FlightClassType();
-    sc.setCapacity(rs.getInt("secondClass_capacity"));
-    sc.setAvailableSeats(rs.getInt("secondClass_seats_available"));
-    FlightClassType fc = new FlightClassType();
-    fc.setCapacity(rs.getInt("firstClass_capacity"));
+        ec.setCapacity(rs.getInt("economicClass_capacity"));
+        ec.setAvailableSeats(rs.getInt("economicClass_seats_available"));
+        FlightClassType sc = new FlightClassType();
+        sc.setCapacity(rs.getInt("secondClass_capacity"));
+        sc.setAvailableSeats(rs.getInt("secondClass_seats_available"));
+        FlightClassType fc = new FlightClassType();
+        fc.setCapacity(rs.getInt("firstClass_capacity"));
         fc.setAvailableSeats(rs.getInt("firstClass_seats_available"));
         flight.setEconomicClass(ec);
         flight.setFirstClass(fc);

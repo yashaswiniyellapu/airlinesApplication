@@ -2,12 +2,30 @@
 package com.everest.airline.views;
 
 
-public class FlightClassType  {
+public class FlightClassType {
     private int capacity;
-    private  int availableSeats;
+    private int availableSeats;
     private double classFare;
     private double totalFare;
-    public FlightClassType(){}
+
+    public FlightClassType() {
+    }
+
+    public void setClassFare(double fare) {
+        this.classFare = fare;
+    }
+
+    public void setTotalFare(double fare) {
+        totalFare = fare;
+    }
+
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
 
     public double getClassFare() {
         return classFare;
@@ -25,20 +43,7 @@ public class FlightClassType  {
         return totalFare;
     }
 
-    public void setClassFare(double fare) {
-        this.classFare = fare;
-
-    }
-
-    public void setTotalFare(double fare) {
-        totalFare = fare;
-    }
-
-    public void setAvailableSeats(int availableSeats) {
-        this.availableSeats = availableSeats;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public boolean validateSeats(int passengerCount, int seats) {
+        return passengerCount <= seats;
     }
 }
