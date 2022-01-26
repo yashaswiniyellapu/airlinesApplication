@@ -3,6 +3,7 @@ package com.everest.airline.price;
 import com.everest.airline.enums.ClassType;
 import com.everest.airline.views.FlightClassType;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -10,10 +11,10 @@ public class TotalFareCalculation {
     private int availableSeats;
     private int capacity;
     private double fare;
-    private LocalDate departureDate;
+    private Date departureDate;
     private FlightClassType flightClass;
 
-    public TotalFareCalculation(FlightClassType flightClass, LocalDate departureDate, String classType) {
+    public TotalFareCalculation(FlightClassType flightClass, Date departureDate, String classType) {
         this.flightClass = flightClass;
         this.departureDate = departureDate;
         fare = ClassType.valueOf(classType).getFare();
@@ -41,7 +42,7 @@ public class TotalFareCalculation {
         int totalNumberOfDays;
         double priceByAvailableSeats = byAvailableSeats();
         LocalDate currentDate = LocalDate.now();
-        Period period = Period.between(departureDate, currentDate);
+        Period period = Period.between(LocalDate.parse(departureDate.toString()), currentDate);
         int numberOfDays = period.getDays();
         if (numberOfDays < 0) {
             totalNumberOfDays = (int) Math.copySign(numberOfDays, 1);
